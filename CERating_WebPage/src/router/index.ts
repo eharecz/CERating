@@ -20,6 +20,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/About.vue')
   },
   {
+    path: '/announcement', /*帮助中心*/
+    name: 'Announcement',
+    component: () => import('../views/announcement.vue')
+  },
+  {
+    path: '/bulletin', /*公告*/
+    name: 'Bulletin',
+    component: () => import('../views/bulletin.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'Error404',
     component: Error404
