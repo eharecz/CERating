@@ -52,8 +52,9 @@
         </div>
         <!-- 个人 -->
         <div class="person">
+          <a>登录</a>
           <div class="person-img">
-            <img src="../assets/person.png" alt="" />
+            <a href="/Login" @click="activeURL = 0"><img src="../assets/person.png" alt="" /></a>
           </div>
           <!-- TODO 点击头像下拉框 -->
         </div>
@@ -164,20 +165,20 @@ export default {
   background-size: cover;
   z-index: -1;
 }
-.el-header {
-  width: 100%;
-  height: 50px;
-  padding: 0 20px 0 20px;
-  display: flex;
-  justify-content: space-between;
-  text-align: center;
-  opacity: 0;
-  transition: all 0.5s ease;
-}
-.el-header:hover {
-  padding-top: 15px;
-  opacity: 1;
-}
+/*.el-header {*/
+/*  width: 100%;*/
+/*  height: 50px;*/
+/*  padding: 0 20px 0 20px;*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  text-align: center;*/
+/*  opacity: 0;*/
+/*  transition: all 0.5s ease;*/
+/*}*/
+/*.el-header:hover {*/
+/*  padding-top: 15px;*/
+/*  opacity: 1;*/
+/*}*/
 .el-header .logo {
   height: 35px;
 }
