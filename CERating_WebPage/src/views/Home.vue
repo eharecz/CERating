@@ -52,7 +52,7 @@
         </div>
         <!-- 个人 -->
         <div class="person">
-          <a>登录</a>
+          <a href="/Login" @click="activeURL = 0" style="text-decoration:none;color:black;">登录</a>
           <div class="person-img">
             <a href="/Login" @click="activeURL = 0"><img src="../assets/person.png" alt="" /></a>
           </div>
