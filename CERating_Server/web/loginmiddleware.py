@@ -6,7 +6,6 @@ import re
 class LoginMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
-        print("hello")
         # One-time configuration and initialization.
 
     def __call__(self, request):
