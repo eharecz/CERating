@@ -59,6 +59,16 @@ export default {
       alert("获取验证码");
     },
     submitLogin() {
+      this.$axios.post("http://127.0.0.1:8000/enterprise_login/",this.loginForm).then((res) => {
+        if(res.code === '0'){
+          alert("Login");
+        }else if(res.code === '1'){
+          alert("邮箱不存在")
+        }else if(res.code === '2'){
+          alert("密码错误")
+        }
+      })
+
       alert("Login");
     },
   },
