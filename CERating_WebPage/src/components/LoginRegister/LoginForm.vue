@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import { postRequest } from "@/utils/api";
+
 export default {
   name: "LoginForm",
   data() {
@@ -59,17 +61,19 @@ export default {
       alert("获取验证码");
     },
     submitLogin() {
-      this.$axios.post("http://127.0.0.1:8000/enterprise_login/",this.loginForm).then((res) => {
-        if(res.code === '0'){
-          alert("Login");
-        }else if(res.code === '1'){
-          alert("邮箱不存在")
-        }else if(res.code === '2'){
-          alert("密码错误")
-        }
-      })
 
-      alert("Login");
+      postRequest("/login", this.loginForm).then(response => {
+        if(response){
+          // 存储用户token
+          const tokenStr = response.obj.tokenHead+response.obj.token;
+          window.sessionStorage.setItem("tokenStr", tokenStr);
+          // 跳转首页
+          this.$router.replace('/');
+          // replace替换页面  浏览器不能后退按钮返回
+          // push 浏览器能后退按钮返回
+        }
+      });
+      // alert("Login");
     },
   },
 };

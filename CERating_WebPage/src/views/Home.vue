@@ -14,45 +14,45 @@
 
         <!-- 菜单栏 -->
         <div class="menu">
-          <div class="menu-item" :key="0">
+          <!-- <div class="menu-item" :key="0">
             <a href="/" @click="activeURL = 0">Logo</a>
             <div
                 class="menu-underline"
                 :class="{ activedPage: activeURL == 0 }"
             ></div>
-          </div>
+          </div> -->
           <div class="menu-item" :key="1">
-            <a href="/Home" @click="activeURL = 0">首页</a>
+            <a href="/" @click="activeURL = 1">首页</a>
             <div
                 class="menu-underline"
-                :class="{ activedPage: activeURL == 0 }"
+                :class="{ activedPage: activeURL == 1 }"
             ></div>
           </div>
           <div class="menu-item" :key="2">
-            <a href="/About" @click="activeURL = 0">公告</a>
+            <a href="/bulletin" @click="activeURL = 2">公告</a>
             <div
                 class="menu-underline"
-                :class="{ activedPage: activeURL == 0 }"
+                :class="{ activedPage: activeURL == 2 }"
             ></div>
           </div>
           <div class="menu-item" :key="3">
-            <a href="/" @click="activeURL = 0">帮助</a>
+            <a href="/announcement" @click="activeURL = 3">帮助</a>
             <div
                 class="menu-underline"
-                :class="{ activedPage: activeURL == 0 }"
+                :class="{ activedPage: activeURL == 3 }"
             ></div>
           </div>
-          <div class="menu-item" :key="3">
-            <a href="/" @click="activeURL = 0">查询</a>
+          <div class="menu-item" :key="4">
+            <a href="/query" @click="activeURL = 4">查询</a>
             <div
                 class="menu-underline"
-                :class="{ activedPage: activeURL == 0 }"
+                :class="{ activedPage: activeURL == 4 }"
             ></div>
           </div>
         </div>
         <!-- 个人 -->
         <div class="person">
-          <a>登录</a>
+          <a href="/Login" @click="activeURL = 0" style="text-decoration:none;color:black;">登录</a>
           <div class="person-img">
             <a href="/Login" @click="activeURL = 0"><img src="../assets/person.png" alt="" /></a>
           </div>
@@ -133,7 +133,7 @@ export default {
   components: { Footer },
   data() {
     return {
-      activeURL: 0,
+      activeURL: 1,
     };
 
   },
