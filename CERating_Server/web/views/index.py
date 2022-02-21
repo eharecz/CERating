@@ -1,10 +1,11 @@
+import json
 from django.shortcuts import render
 from web.models import Enterprise
 from django.http import JsonResponse
 
 def login(request):
     try:
-        user = Enterprise.objects.get(email=request.POST['email'])
+        user = Enterprise.objects.get(email=request.POST['account'])
         import hashlib
         md5 = hashlib.md5()
         s = request.POST['password']

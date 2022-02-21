@@ -98,6 +98,9 @@
 </template>
 
 <script>
+import { postRequest } from "@/utils/api";
+import qs from 'qs'
+
 export default {
   name: "RegisterForm",
   data() {
@@ -115,10 +118,24 @@ export default {
   },
   methods: {
     getSecurityCode() {
-      alert("获取验证码");
+      postRequest("http://127.0.0.1:8000/email_request/", this.registerForm).then(response => {
+        console.log(this.registerForm)
+        console.log(response)
+      });
     },
     submitRegister() {
-      alert("register");
+      postRequest("http://127.0.0.1:8000/enterprise_register/", this.registerForm).then(response => {
+        console.log("form")
+        console.log(this.registerForm)
+        console.log(response)
+        if(response.code === 1){
+          alert("邮箱已存在")
+        }else if(response.code === 2){
+          alert("验证码错误")
+        }else if(response.code === 0){
+          this.$router.replace('/login');
+        }
+      });
     },
     dropdown_selected(selectName) {
       document.querySelector('.dropdown-textbox').value = selectName;

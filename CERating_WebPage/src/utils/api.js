@@ -60,6 +60,9 @@ export const postRequest = (url, params) => {
         method: 'post',
         url: url,
         data: params,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
     })
 }
 

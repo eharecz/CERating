@@ -43,6 +43,7 @@
 
 <script>
 import { postRequest } from "@/utils/api";
+import qs from 'qs'
 
 export default {
   name: "LoginForm",
@@ -62,15 +63,18 @@ export default {
     },
     submitLogin() {
 
-      postRequest("/login", this.loginForm).then(response => {
-        if(response){
-          // 存储用户token
-          const tokenStr = response.obj.tokenHead+response.obj.token;
-          window.sessionStorage.setItem("tokenStr", tokenStr);
-          // 跳转首页
+      postRequest("http://127.0.0.1:8000/enterprise_login/", qs.stringify(this.loginForm)).then(response => {
+        console.log(this.loginForm)
+        console.log(response)
+        if(response.code === 0){
           this.$router.replace('/');
           // replace替换页面  浏览器不能后退按钮返回
           // push 浏览器能后退按钮返回
+        }else if(response.code === 1){
+          alert("邮箱不存在")
+        }else if(response.code === 2){
+          console.log("密码·错误")
+          alert("密码错误")
         }
       });
       // alert("Login");
