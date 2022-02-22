@@ -13,8 +13,8 @@ class LoginMiddleware:
         # Code to be executed for each request before
         # the view (and later middleware) are called.
         urllist = ['/enterprise_login/']
-        if not re.match(r'^/enterprise_login/',path):
-            return redirect(reverse("enterprise_login/"))
+        # if not re.match(r'^/enterprise_login/',path):
+            # return redirect(reverse("enterprise_login/"))
 
         response = self.get_response(request)
 

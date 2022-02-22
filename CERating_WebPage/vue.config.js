@@ -6,10 +6,10 @@ proxyObj['/api'] = {
     // websocket
     ws: false,
     // 目标地址  后端地址
-    target: 'http://localhost:8081',
+    target: 'http://127.0.0.1:8000',
     // 发送请求头的host会被设置为target
     changeOrigin: true,
-    pathReWrite: {
+    pathRewrite: {
         '^/api': '/'
     }
 }

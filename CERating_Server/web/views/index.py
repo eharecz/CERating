@@ -4,11 +4,8 @@ from django.http import JsonResponse
 def login(request):
     try:
         user = Enterprise.objects.get(email=request.POST['email'])
-        import hashlib
-        md5 = hashlib.md5()
         s = request.POST['password']
-        md5.update(s.encode('utf-8'))
-        if user.password == md5.hexdigest():
+        if user.password == s:
             print('登录成功')
             data = {'code': 0, 'name': user.name}
             return JsonResponse(data)

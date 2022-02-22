@@ -8,7 +8,7 @@
     >
       <h3>注册</h3>
       <el-form-item prop="businessName">
-        <input type="text" v-model="registerForm.businessName" required />
+        <input type="text" v-model="registerForm.name" required />
         <div class="input-underline"></div>
         <label class="input-label">企业名称</label>
       </el-form-item>
@@ -32,14 +32,15 @@
           </div>
         </div>
       </el-form-item>
-      <el-form-item prop="businessType2">
+      <el-form-item prop="type">
         <div class="businessType2-box">
           <div>
             <input
               type="radio"
               name="businessType2"
               id="type2-center"
-              value="center"
+              value="0"
+              @click="radio_selected(0)"
             />
             <label for="type2-center">总公司</label>
           </div>
@@ -48,7 +49,8 @@
               type="radio"
               name="businessType2"
               id="type2-brach"
-              value="brach"
+              value="1"
+              @click="radio_selected(1)"
             />
             <label for="type2-brach">分公司</label>
           </div>
@@ -57,7 +59,8 @@
               type="radio"
               name="businessType2"
               id="type2-other"
-              value="other"
+              value="2"
+              @click="radio_selected(2)"
             />
             <label for="type2-other">其他</label>
           </div>
@@ -77,7 +80,7 @@
         <input
           type="text"
           autocomplete="false"
-          v-model="registerForm.securityCode"
+          v-model="registerForm.captcha"
           style="width: 58%"
           required
         />
@@ -98,35 +101,54 @@
 </template>
 
 <script>
+import axios from 'axios'
+import qs from 'qs'
+import sha256 from 'js-sha256'
+
 export default {
   name: "RegisterForm",
   data() {
     return {
       securityCodeUrl: "",
       registerForm: {
-        businessName: "",
-        businessType1: "",
-        businessType2: "",
+        name: "",
+        type: "",
+        relation: "",
         email: "",
         password: "",
-        securityCode: "",
+        captcha: "",
       },
     };
   },
   methods: {
     getSecurityCode() {
-      alert("获取验证码");
+      let old = this.registerForm.password;
+      this.registerForm.password = sha256(this.registerForm.password);
+      axios.post('http://127.0.0.1:8080/api/email_request/', qs.stringify(this.registerForm)).then(res=>{
+        this.registerForm.password = old;
+      })
     },
     submitRegister() {
-      alert("register");
+      let old = this.registerForm.password;
+      this.registerForm.password = sha256(this.registerForm.password);
+      axios.post('http://127.0.0.1:8080/api/enterprise_register/', qs.stringify(this.registerForm)).then(res=>{
+        this.registerForm.password = old;
+        if(res.data.code == 0) {
+          window.location.href = "javascript:history.go(-1)";
+        }
+      })
     },
     dropdown_selected(selectName) {
       document.querySelector('.dropdown-textbox').value = selectName;
       document.querySelector('.dropdown').classList.toggle('active');
+      this.registerForm.type = selectName;
     },
     dropdown_list() {
       document.querySelector('.dropdown').classList.toggle('active');
     },
+    radio_selected(value) {
+      this.registerForm.relation = value;
+    }
   },
 };
 </script>

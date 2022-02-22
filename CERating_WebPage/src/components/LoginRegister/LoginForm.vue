@@ -8,7 +8,7 @@
     >
       <h3>登 录</h3>
       <el-form-item prop="account">
-        <input type="text" v-model="loginForm.account" required />
+        <input type="text" v-model="loginForm.email" required />
         <div class="input-underline"></div>
         <label>企业ID</label>
       </el-form-item>
@@ -42,7 +42,9 @@
 </template>
 
 <script>
-import { postRequest } from "@/utils/api";
+import axios from 'axios'
+import qs from 'qs'
+import sha256 from 'js-sha256'
 
 export default {
   name: "LoginForm",
@@ -50,7 +52,7 @@ export default {
     return {
       securityCodeUrl: "",
       loginForm: {
-        account: "",
+        email: "",
         password: "",
         // securityCode: "",
       },
@@ -61,18 +63,14 @@ export default {
       alert("获取验证码");
     },
     submitLogin() {
-      postRequest("/login", this.loginForm).then(response => {
-        if(response){
-          // 存储用户token
-          const tokenStr = response.obj.tokenHead+response.obj.token;
-          window.sessionStorage.setItem("tokenStr", tokenStr);
-          // 跳转首页
-          this.$router.replace('/');
-          // replace替换页面  浏览器不能后退按钮返回
-          // push 浏览器能后退按钮返回
+      let old = this.loginForm.password;
+      this.loginForm.password = sha256(this.loginForm.password);
+      axios.post('http://127.0.0.1:8080/api/enterprise_login/', qs.stringify(this.loginForm)).then(res=>{
+        this.loginForm.password = old;
+        if(res.data.code == 0) {
+          window.location.href = "javascript:history.go(-1)";
         }
-      });
-      // alert("Login");
+      })
     },
   },
 };
