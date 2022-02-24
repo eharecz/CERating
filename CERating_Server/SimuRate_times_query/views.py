@@ -20,9 +20,10 @@ def SimuRate_times_query(request):
         data = {"code":0}
         return JsonResponse(data)
 
-    #余额重组,查询成功，返回1
+    #余额充足,查询成功，返回1
     else:
-        oob.balance = Decimal(oob.balance)-Decimal(oob.price)
+        oob.balance = Decimal(oob.balance)-Decimal(oob.price) #余额-价格
+        oob.simulate_count = oob.simulate_count+1            #查询次数+1
         oob.save()
         data = {"code": 1}
         return JsonResponse(data)
