@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'enterprise_register',
     'emailcheck',
     'web',
+    'SimuRate_times_query',
+    'recharge',
 ]
 
 MIDDLEWARE = [
