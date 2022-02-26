@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class RechargeConfig(AppConfig):
+class SimurateTimesQueryConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'recharge'
+    name = 'enterprise_simurate'

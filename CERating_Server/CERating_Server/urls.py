@@ -22,7 +22,7 @@ urlpatterns = [
     path('', views.hello, name='index'),
     path('email_request/', views.email_verification_code),
     path('enterprise_register/',include("enterprise_register.urls")),
-    path('', include('web.urls')),
-    path('SimuRate_times_query',include("SimuRate_times_query.urls")),
-    path('recharge',include("recharge.urls"))
+    path('enterprise_simurate/',include("enterprise_simurate.urls")),
+    path('enterprise_recharge/',include("enterprise_recharge.urls")),
+    path('', include('web.urls'))
 ]

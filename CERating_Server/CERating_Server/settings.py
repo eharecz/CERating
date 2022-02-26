@@ -43,10 +43,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'enterprise_register',
+    'enterprise_simurate',
+    'enterprise_recharge',
     'emailcheck',
     'web',
-    'SimuRate_times_query',
-    'recharge',
 ]
 
 MIDDLEWARE = [
