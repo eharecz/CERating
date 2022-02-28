@@ -35,11 +35,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/query.vue')
   },
   {
-    path: '/grade', /*查询*/
-    name: 'Grade',
-    component: () => import('../views/grade.vue')
-  },
-  {
     path: '/:catchAll(.*)',
     name: 'Error404',
     component: Error404
