@@ -165,16 +165,16 @@ export default {
   background-size: cover;
   z-index: -1;
 }
-/*.el-header {*/
-/*  width: 100%;*/
-/*  height: 50px;*/
-/*  padding: 0 20px 0 20px;*/
-/*  display: flex;*/
-/*  justify-content: space-between;*/
-/*  text-align: center;*/
-/*  opacity: 0;*/
-/*  transition: all 0.5s ease;*/
-/*}*/
+.el-header {
+ width: 100%;
+ height: 50px;
+ padding: 15px 20px 0 20px;
+ display: flex;
+ justify-content: space-between;
+ text-align: center;
+ /* opacity: 0; */
+ transition: all 0.5s ease;
+}
 /*.el-header:hover {*/
 /*  padding-top: 15px;*/
 /*  opacity: 1;*/
