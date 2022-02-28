@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mb-background"></div>
+    <div class="mb-background" @click="closeCom"></div>
     <div class="message-box">
       <div class="mb-title">
         <div><img src="../assets/topimg-earth.jpg" alt="leaf" /></div>
@@ -24,12 +24,18 @@ export default {
   name: "LoginForm",
   props: ["fTitle", "fMessage", "fGoURL", "fGoName"],
   data() {
-    return {};
+    return {
+      show: true,
+    };
   },
   methods: {
     goFun() {
       this.$router.push(this.fGoURL);
     },
+    closeCom() {
+      this.show=false
+      this.$emit("changeMB", this.show);
+    }
   },
 };
 </script>
