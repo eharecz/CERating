@@ -328,9 +328,10 @@ export default {
   position:absolute;
   height: 45px;
   width: 120px;
-  right:50px;
+  /*left:600px;*/
+  right:155px;
   bottom:15px;
-  border-radius:5px;
+  /*border-radius:5px;*/
 }
 .el-form-item {
   width: 50%;
