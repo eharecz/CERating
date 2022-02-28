@@ -297,25 +297,26 @@ export default {
 
 /*}*/
 /*输入框style*/
-.loginPart .inputElement input{
-    height: 45px;
-    width: 100px;
-    left: 3000px;
-    bottom:15px;
-  float:right;
-  width: 100%;
-  padding:10px 0;
-  font-size:16px;
-  color:#fff;
-  letter-spacing: 1px;
-  /*字符间的间距1px*/
-  margin-bottom: 30px;
-  border:none;
-  border-bottom: 1px solid #fff;
-  outline:none;
-  /*outline用于绘制元素周围的线
-  outline：none在这里用途是将输入框的边框的线条使其消失*/
-  background: transparent;
+.loginPart .inputElement .el-input{
+  /*position:absolute;*/
+  /*height: 40px;*/
+  left: 30px;
+  /*right: 3000px;*/
+  bottom:5px;
+  /*float:right;*/
+  width: 70%;
+  /*padding:10px 0;*/
+  /*font-size:16px;*/
+  /*color:#fff;*/
+  /*letter-spacing: 1px;*/
+  /*!*字符间的间距1px*!*/
+  /*margin-bottom: 30px;*/
+  /*border:none;*/
+  /*border-bottom: 1px solid #fff;*/
+  /*outline:none;*/
+  /*!*outline用于绘制元素周围的线*/
+  /*outline：none在这里用途是将输入框的边框的线条使其消失*!*/
+  /*background: transparent;*/
   /*背景颜色为透明*/
 }
 
