@@ -348,8 +348,14 @@ export default {
   width: 100%;
   box-sizing: border-box;
 }
-.el-button {
-  width: 100%;
+.el-button{
+  /* position:absolute; */
+  margin-top: 10px;
+  margin-left: 300px;
+  height: 45px;
+  width: 120px;
+  /*left:600px;*/
+  /*border-radius:5px;*/
 }
 .code {
   width: 45%;
