@@ -42,14 +42,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-import axios from 'axios'
-import qs from 'qs'
-import sha256 from 'js-sha256'
-=======
 import { postRequest } from "@/utils/api";
 import qs from 'qs'
->>>>>>> rz
 
 export default {
   name: "LoginForm",
@@ -68,14 +62,6 @@ export default {
       alert("获取验证码");
     },
     submitLogin() {
-<<<<<<< HEAD
-      let old = this.loginForm.password;
-      this.loginForm.password = sha256(this.loginForm.password);
-      axios.post('http://127.0.0.1:8080/api/enterprise_login/', qs.stringify(this.loginForm)).then(res=>{
-        this.loginForm.password = old;
-        if(res.data.code == 0) {
-          window.location.href = "javascript:history.go(-1)";
-=======
 
       postRequest("http://127.0.0.1:8000/enterprise_login/", qs.stringify(this.loginForm)).then(response => {
         console.log(this.loginForm)
@@ -89,7 +75,6 @@ export default {
         }else if(response.code === 2){
           console.log("密码·错误")
           alert("密码错误")
->>>>>>> rz
         }
       })
     },
