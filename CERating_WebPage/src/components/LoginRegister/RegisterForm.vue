@@ -101,9 +101,14 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import axios from 'axios'
 import qs from 'qs'
 import sha256 from 'js-sha256'
+=======
+import { postRequest } from "@/utils/api";
+import qs from 'qs'
+>>>>>>> rz
 
 export default {
   name: "RegisterForm",
@@ -122,6 +127,7 @@ export default {
   },
   methods: {
     getSecurityCode() {
+<<<<<<< HEAD
       let old = this.registerForm.password;
       this.registerForm.password = sha256(this.registerForm.password);
       axios.post('http://127.0.0.1:8080/api/email_request/', qs.stringify(this.registerForm)).then(res=>{
@@ -137,6 +143,26 @@ export default {
           window.location.href = "javascript:history.go(-1)";
         }
       })
+=======
+      postRequest("http://127.0.0.1:8000/email_request/", this.registerForm).then(response => {
+        console.log(this.registerForm)
+        console.log(response)
+      });
+    },
+    submitRegister() {
+      postRequest("http://127.0.0.1:8000/enterprise_register/", this.registerForm).then(response => {
+        console.log("form")
+        console.log(this.registerForm)
+        console.log(response)
+        if(response.code === 1){
+          alert("邮箱已存在")
+        }else if(response.code === 2){
+          alert("验证码错误")
+        }else if(response.code === 0){
+          this.$router.replace('/login');
+        }
+      });
+>>>>>>> rz
     },
     dropdown_selected(selectName) {
       document.querySelector('.dropdown-textbox').value = selectName;

@@ -13,7 +13,7 @@ def hello(request):
 @csrf_exempt
 def email_verification_code(request):
     if request.method == 'POST':
-        email = request.POST['email']  # 邮箱
+        email = request.POST.get('email')  # 邮箱
         code = str(uuid.uuid1().int)[:6]  # 验证码
         timestamp = time.time() + 180  # 过期时间戳
         mail_host = "smtp.163.com"
