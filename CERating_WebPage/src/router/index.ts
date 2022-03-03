@@ -35,6 +35,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/query.vue')
   },
   {
+    path: '/queryresult', /*查询结果*/
+    name: 'QueryResult',
+    component: () => import('../views/queryresult.vue')
+  },
+  {
     path: '/:catchAll(.*)',
     name: 'Error404',
     component: Error404
