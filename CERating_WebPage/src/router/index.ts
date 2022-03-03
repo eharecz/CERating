@@ -35,11 +35,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/query.vue')
   },
   {
-    path: '/recharge', /*充值*/
-    name: 'Query',
-    component: () => import('../views/recharge.vue')
-  },
-  {
     path: '/:catchAll(.*)',
     name: 'Error404',
     component: Error404
