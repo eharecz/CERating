@@ -1,19 +1,22 @@
 <template>
-  <div class="head-title">
-    <h1>{{ title }}</h1>
-    <p>{{ slogan }}</p>
-  </div>
-  <div class="main-wrapper">
-    <MainTitle></MainTitle>
-    <div class="content-wrapper">
-      <div class="content-box">
-        <div class="content-title">{{ content[0].title }}</div>
-      </div>
-      <div class="content-box">
-        <div class="content-title">{{ content[1].title }}</div>
-      </div>
-      <div class="content-box">
-        <div class="content-title">{{ content[2].title }}</div>
+  <div>
+    <NavigationBar></NavigationBar>
+    <div class="head-title">
+      <h1>{{ title }}</h1>
+      <p>{{ slogan }}</p>
+    </div>
+    <div class="main-wrapper">
+      <MainTitle></MainTitle>
+      <div class="content-wrapper">
+        <div class="content-box">
+          <div class="content-title">{{ content[0].title }}</div>
+        </div>
+        <div class="content-box">
+          <div class="content-title">{{ content[1].title }}</div>
+        </div>
+        <div class="content-box">
+          <div class="content-title">{{ content[2].title }}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -21,10 +24,12 @@
 
 <script>
 import MainTitle from "../components/Consult/MainTitle";
+import NavigationBar from '../components/NavigationBar.vue';
 export default {
   name: 'ConsultOverview',
   components: {
-    MainTitle
+    MainTitle,
+    NavigationBar
   },
   data() {
     return {
@@ -51,9 +56,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  position: absolute;
+  /* position: absolute; */
   left: 0;
-  top: 0;
+  /* top: 0; */
 }
 .head-title h1{
   position: relative;

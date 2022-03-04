@@ -1,24 +1,29 @@
 <template>
-  <div class="head-title">
-    <h1>{{ title }}</h1>
-    <p>{{ slogan }}</p>
-  </div>
-  <div class="main-wrapper">
-    <MainTitle></MainTitle>
-    <div class="content-wrapper">
-      <div class="content-box">图文</div>
-      <div class="vertical-bar"></div>
-      <div class="navi-box"></div>
+  <div>
+    <NavigationBar></NavigationBar>
+    <div class="head-title">
+      <h1>{{ title }}</h1>
+      <p>{{ slogan }}</p>
+    </div>
+    <div class="main-wrapper">
+      <MainTitle></MainTitle>
+      <div class="content-wrapper">
+        <div class="content-box">图文</div>
+        <div class="vertical-bar"></div>
+        <div class="navi-box"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import MainTitle from "../components/Consult/MainTitle";
+import NavigationBar from '../components/NavigationBar.vue';
 export default {
   name: "ConsultDetail",
   components: {
-    MainTitle
+    MainTitle,
+    NavigationBar
   },
   data() {
     return {
@@ -38,9 +43,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  position: absolute;
+  /* position: absolute; */
   left: 0;
-  top: 0;
+  /* top: 0; */
 }
 .head-title h1{
   position: relative;
