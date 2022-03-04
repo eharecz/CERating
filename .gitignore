@@ -1,5 +1,5 @@
 **/__pycache__/
 **/node_modules/
 **/.idea/
-**/package-lock.json
-**/package.json
+/CERating_WebPage/package-lock.json
+/CERating_WebPage/package.json
