@@ -25,6 +25,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/announcement.vue')
   },
   {
+    path: '/consultoverview', /*咨询预览页*/
+    name: 'ConsultOverview',
+    component: () => import('../views/ConsultOverview.vue')
+  },
+  {
+    path: '/consultdetail', /*咨询详情页*/
+    name: 'ConsultDetail',
+    component: () => import('../views/ConsultDetail.vue')
+  },
+  {
     path: '/bulletin', /*公告*/
     name: 'Bulletin',
     component: () => import('../views/bulletin.vue')
