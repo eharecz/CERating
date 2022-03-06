@@ -4,15 +4,15 @@
       <NavigationBar />
       <!-- 主体部分 -->
       <el-main>
-        <div class="login">
+        <div class="login" v-if="true">
           <div class="loginPart">
             <h2>模拟评级</h2>
             <h3>碳排放评级详情查询</h3>
-            <el-form>
+<!--            <el-form>
               <a style="color:whitesmoke">选择企业</a>
               <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
                 <option value="">选择企业</option>
-                <!--                <option v-for="item in kindList" v-bind:value="item.id" v-text="item.name" ></option>-->
+                &lt;!&ndash;                <option v-for="item in kindList" v-bind:value="item.id" v-text="item.name" ></option>&ndash;&gt;
               </select>
               <div class="inputElement">
                 <el-input placeholder="请输入指标X "></el-input>
@@ -34,7 +34,49 @@
               </div>
               <div style="text-align: right;color: white;">
               </div>
+            </el-form>-->
+
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" :label-position="'top'" label-width="100px" class="demo-ruleForm" style="width: 100%;">
+              <el-form-item label="选择企业" prop="region">
+                <el-select v-model="ruleForm.goodsId" placeholder="请选择" style="width: 100%;">
+                  <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="中化国际" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="三棵树" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="中国中铁" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="中国交建 " prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="中国中冶" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="通威股份" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="双汇发展" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="科伦药业" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item label="复星医药" prop="name">
+                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="submitForm('ruleForm')">立即提交</el-button>
+              </el-form-item>
             </el-form>
+
+
+            <div style="width: 100%;display:flex;justify-content: center;">
+            </div>
           </div>
         </div>
         <vue-particles
@@ -86,14 +128,48 @@ export default {
   data() {
     return {
       activeURL: 4,
-    };
-
+      ruleForm: {
+        goodsId: '',
+      },
+      rules: {
+        goodsId: [
+          { required: true, message: '请选择', trigger: 'change' }
+        ],
+      },
+      kindList: [{
+        name: '北京百度科技有限公司'
+      }]
+    }
   },
   data1(){
     return{
       kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}]
     }
   },
+  methods:{
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // alert('submit!');
+          this.$alert('是否消耗一次模拟评级机会', '', {
+            confirmButtonText: '确定',
+            callback: action => {
+              console.log(action)
+              this.$message({
+                message: '提交成功'
+              })
+            }
+          });
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    },
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    }
+  }
 };
 
 </script>
@@ -118,15 +194,16 @@ export default {
   z-index: -1;
 }
 .loginPart{
-  position:absolute;
+  margin: 80px auto 80px;
+  /*position:absolute;*/
   /*定位方式绝对定位absolute*/
-  top:50%;
-  left:50%;
+  /*top:50%;*/
+  /*left:50%;*/
   /*顶和高同时设置50%实现的是同时水平垂直居中效果*/
-  transform:translate(-50%,-50%);
+  /*transform:translate(-50%,-50%);*/
   /*实现块元素百分比下居中*/
   width:650px;
-  height:450px;
+  /*height:450px;*/
   padding:50px;
   background: rgba(226, 236, 236, 0.5);
   /*背景颜色为黑色，透明度为0.8*/
@@ -287,7 +364,7 @@ export default {
 }
 .el-form {
   padding: 64px;
-  position: absolute;
+  /*position: absolute;*/
   bottom: 0;
   width: 100%;
   box-sizing: border-box;
