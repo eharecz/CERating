@@ -6,5 +6,5 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from 'axios'
 
-createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
 
+const app = createApp(App).use(store).use(router).use(ElementPlus).mount('#app')

@@ -44,6 +44,7 @@
 <script>
 import { postRequest } from "@/utils/api";
 import qs from 'qs'
+import Global from "@/components/Global.vue";
 
 export default {
   name: "LoginForm",
@@ -67,6 +68,7 @@ export default {
         console.log(this.loginForm)
         console.log(response)
         if(response.code === 0){
+          Global.email = response.email
           this.$router.replace('/');
           // replace替换页面  浏览器不能后退按钮返回
           // push 浏览器能后退按钮返回

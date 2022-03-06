@@ -1,5 +1,6 @@
 <template>
   <div class="recharge">
+    <NavigationBar />
     <div class="box">
       <div class="head">
         <p>订单确认</p>
@@ -54,7 +55,9 @@
 </template>
 
 <script>
+import NavigationBar from "../components/NavigationBar.vue";
 export default {
+  components: { NavigationBar},
   name: "recharge",
   data() {
     return {

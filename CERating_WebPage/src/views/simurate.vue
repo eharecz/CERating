@@ -1,64 +1,7 @@
 <template>
   <div class="home">
     <el-container>
-      <!-- 背景图片 -->
-      <div class="home-background"></div>
-      <!-- 头部导航 -->
-      <el-header>
-        <!-- LOGO -->
-        <div class="logo">
-          <a href="/" @click="activeURL = 0"
-          ><img src="../assets/logo.png" alt="logo"
-          /></a>
-        </div>
-
-        <!-- 菜单栏 -->
-        <div class="menu">
-          <!-- <div class="menu-item" :key="0">
-            <a href="/" @click="activeURL = 0">Logo</a>
-            <div
-                class="menu-underline"
-                :class="{ activedPage: activeURL == 0 }"
-            ></div>
-          </div> -->
-          <div class="menu-item" :key="1">
-            <a href="/" @click="activeURL = 1">首页</a>
-            <div
-                class="menu-underline"
-                :class="{ activedPage: activeURL == 1 }"
-            ></div>
-          </div>
-          <div class="menu-item" :key="2">
-            <a href="/bulletin" @click="activeURL = 2">公告</a>
-            <div
-                class="menu-underline"
-                :class="{ activedPage: activeURL == 2 }"
-            ></div>
-          </div>
-          <div class="menu-item" :key="3">
-            <a href="/announcement" @click="activeURL = 3">帮助</a>
-            <div
-                class="menu-underline"
-                :class="{ activedPage: activeURL == 3 }"
-            ></div>
-          </div>
-          <div class="menu-item" :key="4">
-            <a href="/query" @click="activeURL = 4">查询</a>
-            <div
-                class="menu-underline"
-                :class="{ activedPage: activeURL == 4 }"
-            ></div>
-          </div>
-        </div>
-        <!-- 个人 -->
-        <div class="person">
-          <a href="/Login" @click="activeURL = 0" style="text-decoration:none;color:black;">登录</a>
-          <div class="person-img">
-            <a href="/Login" @click="activeURL = 0"><img src="../assets/person.png" alt="" /></a>
-          </div>
-          <!-- TODO 点击头像下拉框 -->
-        </div>
-      </el-header>
+      <NavigationBar />
       <!-- 主体部分 -->
       <el-main>
         <div class="login">
@@ -135,10 +78,11 @@
 
 <script>
 import Footer from "../components/Home/Footer.vue"
+import NavigationBar from "../components/NavigationBar.vue";
 
 export default {
   name: "Home",
-  components: { Footer },
+  components: {NavigationBar, Footer },
   data() {
     return {
       activeURL: 4,

@@ -40,9 +40,19 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/bulletin.vue')
   },
   {
-    path: '/query', /*查询*/
-    name: 'Query',
-    component: () => import('../views/query.vue')
+    path: '/simurateoverview', /*模拟评级预览页*/
+    name: 'Simulate Rating Overview',
+    component: () => import('../views/simurateoverview.vue')
+  },
+  {
+    path: '/simurateguide', /*模拟评级导航页*/
+    name: 'Simulate Rating Guide',
+    component: () => import('../views/simurateguide.vue')
+  },
+  {
+    path: '/simurate', /*模拟评级*/
+    name: 'Simulate Rating',
+    component: () => import('../views/simurate.vue')
   },
   {
     path: '/queryresult', /*查询结果*/
@@ -64,6 +74,13 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to,from,next)=>{//beforeEach是router的钩子函数，在进入路由前执行
+    if(to.name){//判断是否有标题
+        document.title = to.name.toString()
+    }
+    next()  //执行进入路由，如果不写就不会进入目标页
 })
 
 export default router

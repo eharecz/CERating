@@ -15,7 +15,7 @@
     <div class="nav-bar">
       <!-- LOGO -->
       <div class="logo">
-        <a href="/" @click="activeURL = 0"
+        <a href="/consultoverview" @click="activeURL = 0"
           ><img src="../assets/logo.png" alt="logo"
         /></a>
       </div>
@@ -29,7 +29,7 @@
             ></div>
           </div> -->
         <div class="menu-item" :key="1">
-          <a href="/" @click="activeURL = 1">首页</a>
+          <a href="/consultoverview" @click="activeURL = 1">首页</a>
           <div
             class="menu-underline"
             :class="{ activedPage: activeURL == 1 }"
@@ -50,7 +50,7 @@
           ></div>
         </div>
         <div class="menu-item" :key="4">
-          <a href="/query" @click="activeURL = 4">查询</a>
+          <a href="/simurateoverview" @click="activeURL = 4">模拟评级</a>
           <div
             class="menu-underline"
             :class="{ activedPage: activeURL == 4 }"
@@ -152,7 +152,7 @@ export default {
   line-height: 35px; /* 垂直居中 */
 }
 .nav-bar .menu-item {
-  width: 32px;
+  width: 64px;
 }
 .nav-bar .menu-item .menu-underline {
   width: 10px;
