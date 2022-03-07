@@ -42,32 +42,32 @@
                   <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="中化国际" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="是否采取节能减排措施" prop="name">
+                <el-input v-model="ruleForm.name1" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="三棵树" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="公开信息中对环保政策的关注程度" prop="name">
+                <el-input v-model="ruleForm.name2" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="中国中铁" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="二氧化碳排放" prop="name">
+                <el-input v-model="ruleForm.name3" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="中国交建 " prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="废弃物排放" prop="name">
+                <el-input v-model="ruleForm.name4" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="中国中冶" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="排废水" prop="name">
+                <el-input v-model="ruleForm.name5" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="通威股份" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="COD排放" prop="name">
+                <el-input v-model="ruleForm.name6" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="双汇发展" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="综合能耗" prop="name">
+                <el-input v-model="ruleForm.name7" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="科伦药业" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="研发投入" prop="name">
+                <el-input v-model="ruleForm.name8" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="复星医药" prop="name">
-                <el-input v-model="ruleForm.name" placeholder="请输入指标X"></el-input>
+              <el-form-item label="环保投入" prop="name">
+                <el-input v-model="ruleForm.name8" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即提交</el-button>
