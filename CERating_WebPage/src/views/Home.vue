@@ -144,7 +144,7 @@ export default {
   },
   created() {
     axios
-        .post('http://localhost:8080/api/getEnterpriseData/')
+        .post('/api/getEnterpriseData/')
         .then( response => {
           this.result = response
           console.log(this.result);
