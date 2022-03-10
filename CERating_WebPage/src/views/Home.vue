@@ -67,8 +67,8 @@
             <!-- 用户名 -->
             <el-form-item>
               <a style="color:whitesmoke">选择企业</a>
-              <select v-model="enterprise" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
-                <option v-for="item in result.enterprise" :key="item.name">{{item.name}}</option>
+              <select v-model="enterprise" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px" >
+                <option v-for="item in result.enterprise" :key="item">{{item}}</option>
 <!--                <option value="">选择企业</option>-->
               </select>
             </el-form-item>
@@ -147,6 +147,7 @@ export default {
         .post('http://localhost:8080/api/getEnterpriseData/')
         .then( response => {
           this.result = response
+          console.log(this.result);
         })
         .catch(error=>{
           console.log(error);
@@ -155,12 +156,11 @@ export default {
   },
   methods: {
     query() {
-      axios
-          .get('http://localhost:8080/queryresult?enterprise='+this.enterprise+'&year='+this.year)
-          .catch(error=>{
-            console.log(error);
-            alert('查询失败,请重试');
-          })
+      if(this.enterprise == "" || this.year == "") {
+        alert("请选择需查询的企业或年份！")
+      }else {
+        this.$router.push({path:'/queryresult',query:{enterprise: this.enterprise, year: this.year}})
+      }
     }
   }
 };
