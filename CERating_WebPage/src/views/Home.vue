@@ -67,38 +67,22 @@
             <!-- 用户名 -->
             <el-form-item>
               <a style="color:whitesmoke">选择企业</a>
-<<<<<<< HEAD
-              <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
-                <option value="">选择企业</option>
-<!--                <option v-for="item in kindList" v-bind:value="item.id" v-text="item.name" ></option>-->
-=======
               <select v-model="enterprise" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px" >
                 <option v-for="item in result.enterprise" :key="item">{{item}}</option>
 <!--                <option value="">选择企业</option>-->
->>>>>>> enterprise_getData
               </select>
             </el-form-item>
             <!-- 密码 -->
             <el-form-item>
               <a style="color:whitesmoke">选择年份</a>
-<<<<<<< HEAD
-              <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
-                <option value="">选择年份</option>
-
-=======
               <select v-model="year" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
 <!--                <option value="">选择年份</option>-->
                 <option>{{result.year}}</option>
->>>>>>> enterprise_getData
               </select>
             </el-form-item>
             <!-- 登录按钮 -->
             <el-form-item>
-<<<<<<< HEAD
-              <el-button type="primary">查询</el-button>
-=======
               <el-button type="primary" @click="query">查询</el-button>
->>>>>>> enterprise_getData
             </el-form-item>
           </el-form>
         </div>
@@ -143,10 +127,7 @@
 
 <script>
 import Footer from "../components/Home/Footer.vue"
-<<<<<<< HEAD
-=======
 import axios from "axios";
->>>>>>> enterprise_getData
 
 export default {
   name: "Home",
@@ -154,16 +135,6 @@ export default {
   data() {
     return {
       activeURL: 1,
-<<<<<<< HEAD
-    };
-
-  },
-  data1(){
-    return{
-      kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}]
-    }
-  },
-=======
       // kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}],
       result: {},
       enterprise: '',
@@ -192,7 +163,6 @@ export default {
       }
     }
   }
->>>>>>> enterprise_getData
 };
 
 </script>
