@@ -33,7 +33,11 @@ def recharge(request):
 # 账户不存在 : 1
 # 金额错误 ： 2
 def recharge2(request):
-
+    session_key = request.session.session_key 
+    # 如果没有登录
+    if not request.session.exists(session_key): #session_key就是那个sessionid的值
+        data = {"code":"4", "msg":"未登录"}
+        return JsonResponse(data)
     em = request.POST.get('email')
 
     if Enterprise.objects.filter(email=em).exists()==False:#邮箱不存在
