@@ -74,7 +74,14 @@
         <div class="result-button" @click="getMoreInfo()">
           点击获得详细数据 >
         </div>
-        <MessageBox class="mb"></MessageBox>
+        <MessageBox
+          class="mb"
+          :fTitle="this.mb['mbTitle']"
+          :fMessage="this.mb['mbMessage']"
+          :fGoURL="this.mb['mbGoURL']"
+          :fGoName="this.mb['mbGoName']"
+          @changeMB="closeMB"
+        ></MessageBox>
       </el-main>
       <!-- 底部信息 -->
       <el-footer>
@@ -88,22 +95,27 @@
 import NavigationBar from "../components/NavigationBar.vue";
 import Footer from "../components/Home/Footer.vue";
 import MessageBox from "../components/MessageBox.vue";
-import { postRequest } from "@/utils/api";
+import Global from "../components/Global.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
   components: { NavigationBar, MessageBox, Footer },
   mounted: function () {
-    postRequest("http://127.0.0.1:8000/getEnterpriseRating/").then(
-      (response) => {
-        console.log(response);
-        if (response.code === 0) {
-          this.comRating["bName"] = response.data["bName"];
-          this.comRating["bYear"] = response.data["bYear"];
-          this.comRating["bGrade"] = response.data["bGrade"];
-        }
-      }
-    );
+    this.comRating.bName = this.$route.query["enterprise"];
+    this.comRating.bYear = this.$route.query["year"];
+    axios
+        .post(Global.address + '/api/enterprise_simurate/getEnterpriseRating/')
+        .then( response => {
+          this.comRating.bGrade = response
+          console.log(this.result);
+        })
+        .catch(error=>{
+          console.log(error);
+          alert('数据获取失败,请刷新重试');
+        })
+    
+    this.comRating.bGrade = "A";
   },
   data() {
     return {
@@ -114,9 +126,22 @@ export default {
       },
       moreInfo: {},
       activeURL: 4,
+      mb: {
+        mbTitle: "温馨提示",
+        mbMessage: "温馨提示内容",
+        mbGoURL: "/",
+        mbGoName: "主页",
+      },
     };
   },
   methods: {
+    // 关闭提示窗口
+    closeMB(msg) {
+      if (msg == false) {
+        document
+        .getElementsByClassName("mb")[0].setAttribute("style", "display:none");
+      }
+    },
     getMoreInfo() {
       document
         .getElementsByClassName("generalInfo-box")[0]
@@ -130,17 +155,16 @@ export default {
       document
         .getElementsByClassName("moreInfo-box")[0]
         .setAttribute("style", "display:flex");
-      postRequest("http://127.0.0.1:8000/getEnterpriseRatingData/").then(
-        (response) => {
-          if (response.code === 0) {
-            // 获得详细数据
-          } else if (response.code === 1) {
-            // 提示登录
-          } else if (response.code === 2) {
-            // 提示购买
-          }
-        }
-      );
+      axios
+        .post(Global.address + "/api/getEnterpriseData/")
+        .then((response) => {
+          this.result = response;
+          console.log(this.result);
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("数据获取失败,请刷新重试");
+        });
     },
   },
 };
