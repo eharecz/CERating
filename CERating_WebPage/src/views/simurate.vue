@@ -3,45 +3,44 @@
     <el-container>
       <NavigationBar/>
       <!-- 主体部分 -->
-      <el-main>
+      <el-main style="overflow-y: hidden;">
         <div class="login" v-if="true">
           <div class="loginPart">
             <h2>模拟评级</h2>
             <h3>碳排放评级详情查询</h3>
-            <!--            <el-form>
-                          <a style="color:whitesmoke">选择企业</a>
-                          <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
-                            <option value="">选择企业</option>
-                            &lt;!&ndash;                <option v-for="item in kindList" v-bind:value="item.id" v-text="item.name" ></option>&ndash;&gt;
-                          </select>
-                          <div class="inputElement">
-                            <el-input placeholder="请输入指标X "></el-input>
-                          </div>
-                          <div class="inputElement">
-                            <el-input placeholder="请输入指标X "></el-input>
-                          </div>
-                          <div class="inputElement">
-                            <el-input placeholder="请输入指标X "></el-input>
-                          </div>
-                          <div class="inputElement">
-                            <el-input placeholder="请输入指标X "></el-input>
-                          </div>
-                          <div class="inputElement">
-                            <el-input placeholder="请输入指标X "></el-input>
-                          </div>
-                          <div>
-                            <el-button type="primary" >确认</el-button>
-                          </div>
-                          <div style="text-align: right;color: white;">
-                          </div>
-                        </el-form>-->
+<!--            <el-form>
+              <a style="color:whitesmoke">选择企业</a>
+              <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
+                <option value="">选择企业</option>
+                &lt;!&ndash;                <option v-for="item in kindList" v-bind:value="item.id" v-text="item.name" ></option>&ndash;&gt;
+              </select>
+              <div class="inputElement">
+                <el-input placeholder="请输入指标X "></el-input>
+              </div>
+              <div class="inputElement">
+                <el-input placeholder="请输入指标X "></el-input>
+              </div>
+              <div class="inputElement">
+                <el-input placeholder="请输入指标X "></el-input>
+              </div>
+              <div class="inputElement">
+                <el-input placeholder="请输入指标X "></el-input>
+              </div>
+              <div class="inputElement">
+                <el-input placeholder="请输入指标X "></el-input>
+              </div>
+              <div>
+                <el-button type="primary" >确认</el-button>
+              </div>
+              <div style="text-align: right;color: white;">
+              </div>
+            </el-form>-->
 
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" :label-position="'top'" label-width="100px"
-                     class="demo-ruleForm" style="width: 100%;">
-              <el-form-item label="选择企业" prop="goodsId">
-                <el-select v-model="ruleForm.goodsId" placeholder="请选择" style="width: 100%;">
-                  <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id"
-                             :key="index"></el-option>
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" :label-position="'top'" label-width="100px" class="demo-ruleForm" style="width: 100%;">
+              <el-form-item label="选择企业" prop="region">
+                <el-select v-model="ruleForm.goodsName" placeholder="请选择" style="width: 100%;">
+                  <el-option v-for="item in result.enterprise" :key="item" :value="item">{{item}}</el-option>
+                  <!-- <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option> -->
                 </el-select>
               </el-form-item>
               <el-form-item label="是否采取节能减排措施" prop="name1">
@@ -76,9 +75,6 @@
               </el-form-item>
             </el-form>
 
-
-            <div style="width: 100%;display:flex;justify-content: center;">
-            </div>
           </div>
         </div>
         <vue-particles
@@ -102,7 +98,6 @@
         >
         </vue-particles>
 
-
         <!-- 时间 -->
         <div class="time-box">
 
@@ -112,75 +107,44 @@
       </el-main>
       <!-- 底部信息 -->
       <el-footer>
-        <Footer></Footer>
+        <!-- <Footer></Footer> -->
       </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
-import Footer from "../components/Home/Footer.vue"
+import Global from "../components/Global.vue"
 import NavigationBar from "../components/NavigationBar.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
-  components: {NavigationBar, Footer},
+  components: {NavigationBar},
   data() {
     return {
       activeURL: 4,
+      result: {},
       ruleForm: {
-        goodsId: '',
-        name1: '',
-        name2: '',
-        name3: '',
-        name4: '',
-        name5: '',
-        name6: '',
-        name7: '',
-        name8: '',
-        name9: '',
+        goodsName: '',
       },
       rules: {
-        goodsId: [
-          {required: true, message: '请选择', trigger: 'change'}
+        goodsName: [
+          { required: true, message: '请选择', trigger: 'change' }
         ],
-        name1: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name2: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name3: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name4: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name5: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name6: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name7: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name8: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ],
-        name9: [
-          {required: true, message: '请输入', trigger: 'blur'}
-        ]
-      },
-      kindList: [{
-        name: '北京百度科技有限公司'
-      }]
+      }
     }
   },
-  data1() {
-    return {
-      kindList: [{name: "小可爱", id: 1}, {name: "小仙女", id: 2}, {name: "小宝龙", id: 3}]
-    }
+  created() {
+    axios
+        .post(Global.address + '/api/getEnterpriseData/')
+        .then( response => {
+          this.result = response
+        })
+        .catch(error=>{
+          console.log(error);
+          alert('数据获取失败,请刷新重试');
+        })
   },
   methods: {
     submitForm(formName) {
@@ -191,13 +155,16 @@ export default {
             confirmButtonText: '确定',
             callback: action => {
               console.log(action)
-              this.$message({
-                message: '提交成功'
-              })
+              console.log(this.ruleForm)
+              // axios
+              //   .post(Global.address + '/api/simurate', this.$refs[formName])
+              //   .then( response => {
+              //     console.log(response)
+              //   })
             }
           });
         } else {
-          console.log('error submit!!');
+          console.log('请填写全部信息！');
           return false;
         }
       });
@@ -231,9 +198,8 @@ export default {
   background-size: cover;
   z-index: -1;
 }
-
-.loginPart {
-  margin: 80px auto 80px;
+.loginPart{
+  margin: 20px auto 00px;
   /*position:absolute;*/
   /*定位方式绝对定位absolute*/
   /*top:50%;*/
@@ -243,7 +209,7 @@ export default {
   /*实现块元素百分比下居中*/
   width: 650px;
   /*height:450px;*/
-  padding: 50px;
+  padding:30px;
   background: rgba(226, 236, 236, 0.5);
   /*背景颜色为黑色，透明度为0.8*/
   box-sizing: border-box;
@@ -254,18 +220,16 @@ export default {
   border-radius: 15px;
   /*边框圆角，四个角均为15px*/
 }
-
-.loginPart h2 {
-  margin: 0 0 30px;
-  padding: 0;
+.loginPart h2{
+  margin:0 0 10px;
+  padding:0;
   color: #1f4be8;
   text-align: center;
   /*文字居中*/
 }
-
-.loginPart h3 {
-  margin: 0 0 30px;
-  padding: 0;
+.loginPart h3{
+  margin:0 0 10px;
+  padding:0;
   color: #1f4be8;
   text-align: center;
   /*文字居中*/

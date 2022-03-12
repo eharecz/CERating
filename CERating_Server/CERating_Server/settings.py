@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'emailcheck',
     'web',
     'enterprise_getdata',
-    'query_result',
+    # 'query_result',
 ]
 
 MIDDLEWARE = [
