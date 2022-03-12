@@ -28,7 +28,9 @@ export default {
       show: true,
     };
   },
+  
   methods: {
+
     goFun() {
       this.$router.push(this.fGoURL);
     },
