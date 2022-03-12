@@ -38,7 +38,7 @@
 
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" :label-position="'top'" label-width="100px" class="demo-ruleForm" style="width: 100%;">
               <el-form-item label="选择企业" prop="region">
-                <el-select v-model="ruleForm.goodsId" placeholder="请选择" style="width: 100%;">
+                <el-select v-model="ruleForm.goodsName" placeholder="请选择" style="width: 100%;">
                   <el-option v-for="item in result.enterprise" :key="item" :value="item">{{item}}</el-option>
                   <!-- <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option> -->
                 </el-select>
@@ -68,7 +68,7 @@
                 <el-input v-model="ruleForm.name8" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="环保投入" prop="name">
-                <el-input v-model="ruleForm.name8" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.name9" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即提交</el-button>
@@ -107,7 +107,7 @@
       </el-main>
       <!-- 底部信息 -->
       <el-footer>
-        <Footer></Footer>
+        <!-- <Footer></Footer> -->
       </el-footer>
     </el-container>
   </div>
@@ -115,33 +115,24 @@
 
 <script>
 import Global from "../components/Global.vue"
-import Footer from "../components/Home/Footer.vue"
 import NavigationBar from "../components/NavigationBar.vue";
 import axios from "axios";
 
 export default {
   name: "Home",
-  components: {NavigationBar, Footer },
+  components: {NavigationBar},
   data() {
     return {
       activeURL: 4,
       result: {},
       ruleForm: {
-        goodsId: '',
+        goodsName: '',
       },
       rules: {
-        goodsId: [
+        goodsName: [
           { required: true, message: '请选择', trigger: 'change' }
         ],
-      },
-      kindList: [{
-        name: '北京百度科技有限公司'
-      }]
-    }
-  },
-  data1(){
-    return{
-      kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}]
+      }
     }
   },
   created() {
@@ -164,15 +155,16 @@ export default {
             confirmButtonText: '确定',
             callback: action => {
               console.log(action)
-              axios
-                .post(Global.address + '/api/simurate', this.$refs[formName])
-                .then( response => {
-                  console.log(response)
-                })
+              console.log(this.ruleForm)
+              // axios
+              //   .post(Global.address + '/api/simurate', this.$refs[formName])
+              //   .then( response => {
+              //     console.log(response)
+              //   })
             }
           });
         } else {
-          console.log('error submit!!');
+          console.log('请填写全部信息！');
           return false;
         }
       });
