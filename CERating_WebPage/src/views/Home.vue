@@ -67,22 +67,22 @@
             <!-- 用户名 -->
             <el-form-item>
               <a style="color:whitesmoke">选择企业</a>
-              <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
-                <option value="">选择企业</option>
-<!--                <option v-for="item in kindList" v-bind:value="item.id" v-text="item.name" ></option>-->
+              <select v-model="enterprise" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px" >
+                <option v-for="item in result.enterprise" :key="item">{{item}}</option>
+<!--                <option value="">选择企业</option>-->
               </select>
             </el-form-item>
             <!-- 密码 -->
             <el-form-item>
               <a style="color:whitesmoke">选择年份</a>
-              <select v-model="goodsId" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
-                <option value="">选择年份</option>
-
+              <select v-model="year" style="width:200px;height: 30px;margin-top: 5px;margin-bottom: 5px;margin-left: 10px">
+<!--                <option value="">选择年份</option>-->
+                <option>{{result.year}}</option>
               </select>
             </el-form-item>
             <!-- 登录按钮 -->
             <el-form-item>
-              <el-button type="primary">查询</el-button>
+              <el-button type="primary" @click="query">查询</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -127,6 +127,7 @@
 
 <script>
 import Footer from "../components/Home/Footer.vue"
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -134,14 +135,34 @@ export default {
   data() {
     return {
       activeURL: 1,
+      // kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}],
+      result: {},
+      enterprise: '',
+      year: ''
     };
 
   },
-  data1(){
-    return{
-      kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}]
-    }
+  created() {
+    axios
+        .post('/api/getEnterpriseData/')
+        .then( response => {
+          this.result = response
+          console.log(this.result);
+        })
+        .catch(error=>{
+          console.log(error);
+          alert('数据获取失败,请刷新重试');
+        })
   },
+  methods: {
+    query() {
+      if(this.enterprise == "" || this.year == "") {
+        alert("请选择需查询的企业或年份！")
+      }else {
+        this.$router.push({path:'/queryresult',query:{enterprise: this.enterprise, year: this.year}})
+      }
+    }
+  }
 };
 
 </script>

@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.hello, name='index'),
     path('email_request/', views.email_verification_code),
+    path('getEnterpriseData/', include("enterprise_getdata.urls")),
     path('enterprise_register/',include("enterprise_register.urls")),
     path('enterprise_simurate/',include("enterprise_simurate.urls")),
     path('enterprise_recharge/',include("enterprise_recharge.urls")),

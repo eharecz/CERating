@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'enterprise_recharge',
     'emailcheck',
     'web',
+    'enterprise_getdata',
+    'query_result',
 ]
 
 MIDDLEWARE = [
