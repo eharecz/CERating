@@ -66,16 +66,15 @@
                     <td>Elantra</td>
                     <td>2010</td>
                   </tr>
-                  
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
         <div class="result-button" @click="getMoreInfo()">
           点击获得详细数据 >
         </div>
+        <MessageBox class="mb"></MessageBox>
       </el-main>
       <!-- 底部信息 -->
       <el-footer>
@@ -88,10 +87,24 @@
 <script>
 import NavigationBar from "../components/NavigationBar.vue";
 import Footer from "../components/Home/Footer.vue";
+import MessageBox from "../components/MessageBox.vue";
+import { postRequest } from "@/utils/api";
 
 export default {
   name: "Home",
-  components: { NavigationBar, Footer },
+  components: { NavigationBar, MessageBox, Footer },
+  mounted: function () {
+    postRequest("http://127.0.0.1:8000/getEnterpriseRating/").then(
+      (response) => {
+        console.log(response);
+        if (response.code === 0) {
+          this.comRating["bName"] = response.data["bName"];
+          this.comRating["bYear"] = response.data["bYear"];
+          this.comRating["bGrade"] = response.data["bGrade"];
+        }
+      }
+    );
+  },
   data() {
     return {
       comRating: {
@@ -99,12 +112,12 @@ export default {
         bYear: "2022",
         bGrade: "S",
       },
+      moreInfo: {},
       activeURL: 4,
     };
   },
   methods: {
     getMoreInfo() {
-      console.log(111);
       document
         .getElementsByClassName("generalInfo-box")[0]
         .setAttribute("style", "width:20%");
@@ -117,12 +130,27 @@ export default {
       document
         .getElementsByClassName("moreInfo-box")[0]
         .setAttribute("style", "display:flex");
+      postRequest("http://127.0.0.1:8000/getEnterpriseRatingData/").then(
+        (response) => {
+          if (response.code === 0) {
+            // 获得详细数据
+          } else if (response.code === 1) {
+            // 提示登录
+          } else if (response.code === 2) {
+            // 提示购买
+          }
+        }
+      );
     },
   },
 };
 </script>
 
 <style scoped>
+.mb {
+  position: absolute;
+  top: 30%;
+}
 .qr-box {
   display: flex;
   justify-content: center;
