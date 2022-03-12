@@ -3,7 +3,7 @@
     <el-container>
       <NavigationBar />
       <!-- 主体部分 -->
-      <el-main>
+      <el-main style="overflow-y: hidden;">
         <div class="login" v-if="true">
           <div class="loginPart">
             <h2>模拟评级</h2>
@@ -39,7 +39,8 @@
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" :label-position="'top'" label-width="100px" class="demo-ruleForm" style="width: 100%;">
               <el-form-item label="选择企业" prop="region">
                 <el-select v-model="ruleForm.goodsId" placeholder="请选择" style="width: 100%;">
-                  <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option>
+                  <el-option v-for="item in result.enterprise" :key="item" :value="item">{{item}}</el-option>
+                  <!-- <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option> -->
                 </el-select>
               </el-form-item>
               <el-form-item label="是否采取节能减排措施" prop="name">
@@ -74,9 +75,6 @@
               </el-form-item>
             </el-form>
 
-
-            <div style="width: 100%;display:flex;justify-content: center;">
-            </div>
           </div>
         </div>
         <vue-particles
@@ -100,9 +98,6 @@
         >
         </vue-particles>
 
-
-
-
         <!-- 时间 -->
         <div class="time-box">
 
@@ -119,8 +114,10 @@
 </template>
 
 <script>
+import Global from "../components/Global.vue"
 import Footer from "../components/Home/Footer.vue"
 import NavigationBar from "../components/NavigationBar.vue";
+import axios from "axios";
 
 export default {
   name: "Home",
@@ -128,6 +125,7 @@ export default {
   data() {
     return {
       activeURL: 4,
+      result: {},
       ruleForm: {
         goodsId: '',
       },
@@ -146,6 +144,17 @@ export default {
       kindList:[{name:"小可爱",id:1},{name:"小仙女",id:2},{name:"小宝龙",id:3}]
     }
   },
+  created() {
+    axios
+        .post(Global.address + '/api/getEnterpriseData/')
+        .then( response => {
+          this.result = response
+        })
+        .catch(error=>{
+          console.log(error);
+          alert('数据获取失败,请刷新重试');
+        })
+  },
   methods:{
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -155,9 +164,11 @@ export default {
             confirmButtonText: '确定',
             callback: action => {
               console.log(action)
-              this.$message({
-                message: '提交成功'
-              })
+              axios
+                .post(Global.address + '/api/simurate', this.$refs[formName])
+                .then( response => {
+                  console.log(response)
+                })
             }
           });
         } else {
@@ -194,7 +205,7 @@ export default {
   z-index: -1;
 }
 .loginPart{
-  margin: 80px auto 80px;
+  margin: 20px auto 00px;
   /*position:absolute;*/
   /*定位方式绝对定位absolute*/
   /*top:50%;*/
@@ -204,7 +215,7 @@ export default {
   /*实现块元素百分比下居中*/
   width:650px;
   /*height:450px;*/
-  padding:50px;
+  padding:30px;
   background: rgba(226, 236, 236, 0.5);
   /*背景颜色为黑色，透明度为0.8*/
   box-sizing:border-box;
@@ -216,14 +227,14 @@ export default {
   /*边框圆角，四个角均为15px*/
 }
 .loginPart h2{
-  margin:0 0 30px;
+  margin:0 0 10px;
   padding:0;
   color: #1f4be8;
   text-align:center;
   /*文字居中*/
 }
 .loginPart h3{
-  margin:0 0 30px;
+  margin:0 0 10px;
   padding:0;
   color: #1f4be8;
   text-align:center;
