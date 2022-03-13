@@ -50,10 +50,17 @@
           ></div>
         </div>
         <div class="menu-item" :key="4">
-          <a href="/simurateoverview" @click="activeURL = 4">模拟评级</a>
+          <a href="/" @click="activeURL = 4">正式评级</a>
           <div
             class="menu-underline"
             :class="{ activedPage: activeURL == 4 }"
+          ></div>
+        </div>
+        <div class="menu-item" :key="5">
+          <a href="/simurateoverview" @click="activeURL = 5">模拟评级</a>
+          <div
+            class="menu-underline"
+            :class="{ activedPage: activeURL == 5 }"
           ></div>
         </div>
       </div>

@@ -50,7 +50,12 @@
 
         </div>
         <div class="vertical-bar"></div>
-        <div class="navi-box"></div>
+        <div class="navi-box">
+          <h3 style="color: #74b9ff; margin: 30px">相关链接:</h3>
+          <a style="margin: 60px 30px" href="/consultdetail">碳达峰、碳中和的经济学解读</a>
+          <div style="height: 30px"></div>
+          <a style="margin: 60px 30px;" href="/consultdetail3">启动！2022中国能源企业碳中和贡献力报告企业材料征集</a>
+        </div>
       </div>
     </div>
   </div>

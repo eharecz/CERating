@@ -49,25 +49,25 @@
               <el-form-item label="公开信息中对环保政策的关注程度" prop="name2">
                 <el-input v-model="ruleForm.name2" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="二氧化碳排放" prop="name3">
+              <el-form-item label="二氧化碳排放（吨）" prop="name3">
                 <el-input v-model="ruleForm.name3" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="废弃物排放" prop="name4">
+              <el-form-item label="废弃物排放（吨）" prop="name4">
                 <el-input v-model="ruleForm.name4" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="排废水" prop="name5">
+              <el-form-item label="排废水量（吨）" prop="name5">
                 <el-input v-model="ruleForm.name5" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="COD排放" prop="name6">
+              <el-form-item label="COD排放（吨）" prop="name6">
                 <el-input v-model="ruleForm.name6" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="综合能耗" prop="name7">
+              <el-form-item label="综合能耗（吨标煤）" prop="name7">
                 <el-input v-model="ruleForm.name7" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="研发投入" prop="name8">
+              <el-form-item label="研发投入(亿元)" prop="name8">
                 <el-input v-model="ruleForm.name8" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="环保投入" prop="name9">
+              <el-form-item label="环保投入（万元）" prop="name9">
                 <el-input v-model="ruleForm.name9" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item>
