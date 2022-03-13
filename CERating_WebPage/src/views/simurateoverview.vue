@@ -1,28 +1,24 @@
 <template>
-  <div class="main-wrapper">
-    <div class="detail-box">
-      <div class="img-box">
-        <img :src="detail_box.pic_src" alt="skyBG">
+  <div>
+    <NavigationBar />
+    <div class="main-wrapper">
+      <div class="detail-box">
+        <div class="img-box">
+          <img :src="detail_box.pic_src" alt="skyBG">
+        </div>
+        <div class="display-box">
+          <p style="margin-top: 80px">模拟评级详情</p>
+          <a class="btn" href="simurate">模拟评级入口</a>
+        </div>
       </div>
-      <div class="display-box">
-        <h2>模拟评级详情</h2>
-        <button class="btn">模拟评级入口</button>
-      </div>
-    </div>
 
-    <div class="material-box">
-      <div class="img-box">
-        <div id="todo"></div>
-      </div>
-      <div class="display-box">
-        <h2>图文资料</h2>
-        <p>模拟评级导航</p>
-        <div class="navi-box">
-          <div class="head-bar"></div>
-          <div class="content-bar"></div>
-          <div class="content-bar"></div>
-          <div class="content-bar"></div>
-          <div class="content-bar"></div>
+      <div class="detail-box">
+        <div class="img-box">
+          <img :src="detail_box.pic_src" alt="skyBG">
+        </div>
+        <div class="display-box">
+          <p style="margin-top: 80px">模拟评级导航</p>
+          <a class="btn" href="simurateguide">模拟评级导航入口</a>
         </div>
       </div>
     </div>
@@ -30,9 +26,10 @@
 </template>
 
 <script>
-import pic1 from 'src/assets/rating_pic1.jpg'
-
+import pic1 from '../assets/rating_pic1.jpg'
+import NavigationBar from "../components/NavigationBar.vue";
 export default {
+  components: { NavigationBar},
   name: 'main',
   data() {
     return {
@@ -63,6 +60,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding-left: 25%;
   overflow: auto;
 }
 .detail-box {
@@ -110,11 +108,12 @@ export default {
   font-size: 1.5em;
   font-weight: 500;
 }
-.display-box button{
+.display-box .btn{
   position: absolute;
   right: 70px;
   bottom: 20px;
   font-weight: 300;
+  text-decoration: none;
 }
 .navi-box{
   position: relative;

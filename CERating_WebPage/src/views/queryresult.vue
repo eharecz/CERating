@@ -10,7 +10,7 @@
         <div class="result-title">
           {{ this.comRating["bName"] }}公司{{
             this.comRating["bYear"]
-          }}年碳排放数据
+          }}年碳排放评级
         </div>
         <div class="result-box">
           <div class="generalInfo-box">
@@ -25,57 +25,34 @@
               <table class="pure-table">
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Year</th>
+                    <th>序号</th>
+                    <th>指标</th>
+                    <th>数据</th>
                   </tr>
                 </thead>
-
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Honda</td>
-                    <td>Accord</td>
-                    <td>2009</td>
+                  <tr v-for="(data, index, i) in this.moreInfo" :key="index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ index }}</td>
+                    <td>{{ data }}</td>
                   </tr>
-
-                  <tr>
-                    <td>2</td>
-                    <td>Toyota</td>
-                    <td>Camry</td>
-                    <td>2012</td>
-                  </tr>
-
-                  <tr>
-                    <td>3</td>
-                    <td>Hyundai</td>
-                    <td>Elantra</td>
-                    <td>2010</td>
-                  </tr>
-
-                  <tr>
-                    <td>4</td>
-                    <td>Hyundai</td>
-                    <td>Elantra</td>
-                    <td>2010</td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Hyundai</td>
-                    <td>Elantra</td>
-                    <td>2010</td>
-                  </tr>
-                  
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
         <div class="result-button" @click="getMoreInfo()">
           点击获得详细数据 >
         </div>
+        <MessageBox
+          class="mb"
+          :fTitle="this.mb['mbTitle']"
+          :fMessage="this.mb['mbMessage']"
+          :fGoURL="this.mb['mbGoURL']"
+          :fGoName="this.mb['mbGoName']"
+          @changeMB="closeMB"
+          @mbfun="purchase"
+        ></MessageBox>
       </el-main>
       <!-- 底部信息 -->
       <el-footer>
@@ -88,41 +65,168 @@
 <script>
 import NavigationBar from "../components/NavigationBar.vue";
 import Footer from "../components/Home/Footer.vue";
+import MessageBox from "../components/MessageBox.vue";
+import Global from "../components/Global.vue";
 
 export default {
   name: "Home",
-  components: { NavigationBar, Footer },
+  components: { NavigationBar, MessageBox, Footer },
+  mounted: function () {
+    this.comRating.bName = this.$route.query["enterprise"];
+    this.comRating.bYear = this.$route.query["year"];
+    let data = new FormData();
+    data.append("name", this.comRating.bName);
+    this.$axios
+      .post(
+        Global.address + "/api/enterprise_simurate/getEnterpriseRating/",
+        data
+      )
+      .then((response) => {
+        this.comRating.bGrade = response["rate"];
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("数据获取失败,请刷新重试");
+      });
+  },
   data() {
     return {
       comRating: {
         bName: "花旗",
         bYear: "2022",
-        bGrade: "S",
+        bGrade: "",
       },
+      moreInfo: {},
       activeURL: 4,
+      mb: {
+        mbTitle: "温馨提示",
+        mbMessage: "温馨提示内容",
+        mbGoURL: "/",
+        mbGoName: "主页",
+      },
     };
   },
   methods: {
+    // 购买相应企业数据
+    purchase() {
+      let data = new FormData();
+      data.append("name", this.comRating.bName); // 购买公司的名字
+      data.append("email", localStorage.getItem("email"));
+      console.log(localStorage.getItem("email"));
+      this.$axios
+        .post(
+          Global.address + "/api/enterprise_simurate/purchaseRatingData/",
+          data,
+          { emulateJSON: true, credentials: true }
+        )
+        .then((res) => {
+          if (res["code"] == 0) {
+            this.mb["mbMessage"] = "购买成功，感谢您的支持！";
+            this.mb["mbGoName"] = "确定";
+            this.mb["mbGoURL"] = "-1";
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          } else if (res["code"] == 1) {
+            // 没有登录
+            this.mb["mbMessage"] = "您还未登录，请先登录以后再进行操作！";
+            this.mb["mbGoName"] = "去登陆";
+            this.mb["mbGoURL"] = "/login";
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          } else if (res["code"] == 2) {
+            // 余额不足
+            this.mb["mbMessage"] = "余额不足，请先进行充值！";
+            this.mb["mbGoName"] = "充值";
+            this.mb["mbGoURL"] = "/recharge";
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          }
+        });
+    },
+    // 关闭提示窗口
+    closeMB(msg) {
+      if (msg == false) {
+        document
+          .getElementsByClassName("mb")[0]
+          .setAttribute("style", "display:none");
+      }
+    },
     getMoreInfo() {
-      console.log(111);
-      document
-        .getElementsByClassName("generalInfo-box")[0]
-        .setAttribute("style", "width:20%");
-      document
-        .getElementsByClassName("gb-title")[0]
-        .setAttribute("style", "margin: 50px 25px;");
-      document
-        .getElementsByClassName("gb-grade")[0]
-        .setAttribute("style", "margin: 40px 0 0 60px;");
-      document
-        .getElementsByClassName("moreInfo-box")[0]
-        .setAttribute("style", "display:flex");
+      let data = new FormData();
+      data.append("name", this.comRating.bName);
+      data.append("email", localStorage.getItem("email"));
+      console.log(localStorage.getItem("email"));
+      this.$axios
+        .post(
+          Global.address + "/api/enterprise_simurate/getEnterpriseRatingData/",
+          data,
+          { emulateJSON: true, credentials: true }
+        )
+        .then((response) => {
+          if (response["code"] == "0") {
+            // 正常
+            this.moreInfo = response["data"];
+            console.log(response["data"]);
+            document
+              .getElementsByClassName("generalInfo-box")[0]
+              .setAttribute("style", "width:20%");
+            document
+              .getElementsByClassName("gb-title")[0]
+              .setAttribute("style", "margin: 50px 25px;");
+            document
+              .getElementsByClassName("gb-grade")[0]
+              .setAttribute("style", "margin: 40px 0 0 60px;");
+            document
+              .getElementsByClassName("moreInfo-box")[0]
+              .setAttribute("style", "display:flex");
+          } else if (response["code"] == "1") {
+            // 未登录
+            // this.mb["mbMessage"] = response["msg"]
+            this.mb["mbMessage"] = "您还未登录，请先登录以后再进行操作！";
+            this.mb["mbGoName"] = "去登陆";
+            this.mb["mbGoURL"] = "/login";
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          } else if (response["code"] == "2") {
+            // 企业不存在
+            // this.mb["mbMessage"] = response["msg"]
+            this.mb["mbMessage"] = "该企业不存在，请确认企业名称等是否正确！";
+            this.mb["mbGoName"] = "去登陆";
+            this.mb["mbGoURL"] = "-1";
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          } else if (response["code"] == "3") {
+            // 当前用户并没有购买这个企业的信息
+            // this.mb["mbMessage"] = response["msg"]
+            this.mb["mbMessage"] = "抱歉，您未购买相应的数据，请先购买！";
+            this.mb["mbGoName"] = "购买";
+            this.mb["mbGoURL"] = "-2"; // -2 表示进行相应post操作
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          }
+          // console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("数据获取失败,请刷新重试");
+        });
     },
   },
 };
 </script>
 
 <style scoped>
+.mb {
+  position: absolute;
+  top: 30%;
+  display: none;
+}
 .qr-box {
   display: flex;
   justify-content: center;
@@ -157,13 +261,13 @@ export default {
 .gb-right {
   position: absolute;
   width: 60%;
-  height: 350px;
+  min-height: 400px;
 }
 
 .generalInfo-box {
   margin-top: 20px;
   width: 100%;
-  height: 350px;
+  min-height: 400px;
   box-shadow: rgb(0 0 0 / 20%) 0 0 25px;
   background-image: linear-gradient(
     -180deg,
@@ -192,7 +296,7 @@ export default {
   margin-top: 20px;
   display: none;
   width: 75%;
-  height: 350px;
+  min-height: 400px;
   box-shadow: rgb(0 0 0 / 20%) 0 0 25px;
   background-image: linear-gradient(
     -180deg,
@@ -246,6 +350,7 @@ table {
 td,
 th {
   padding: 0;
+  min-width: 40px;
 }
 
 .pure-table {

@@ -27,3 +27,47 @@ def recharge(request):
             oob.save()
             data = {"code": 0}
             return JsonResponse(data)
+
+# 充值接口
+# 充值成功 :0
+# 账户不存在 : 1
+# 金额错误 ： 2
+def recharge2(request):
+    # session_key = request.session.session_key
+    # # 如果没有登录
+    # if not request.session.exists(session_key): #session_key就是那个sessionid的值
+    #     data = {"code":"4", "msg":"未登录"}
+    #     return JsonResponse(data)
+
+    em = request.POST.get('email')
+    if Enterprise.objects.filter(email=em).exists()==False:#邮箱不存在
+        data = {"code": 1, 'msg': "邮箱不存在"}
+        return JsonResponse(data)
+
+    simulateCount = request.POST.get('simulateCount')
+    money = request.POST.get('money')
+
+    print("money", money)
+    print("Count", simulateCount)
+
+    # 如果充值金额或次数为空
+    if simulateCount == 0 and money == 0:
+        data = {"code": 2, 'msg': "充值金额/次数有误"}
+        return JsonResponse(data)
+
+    # 如果这里是小数会向下取整（希望前端可以让传过来的一定是整数
+    simulateCountValue = Decimal(simulateCount)
+    moneyValue = Decimal(money)
+
+    # 如果充值金额或次数为负数
+    if simulateCountValue < 0 or moneyValue < 0:
+        data = {"code": 2, 'msg': "充值金额/次数有误"}
+        return JsonResponse(data)
+    else:
+        oob = Enterprise.objects.get(email=em)
+        oob.simulate_count = oob.simulate_count + simulateCountValue
+        oob.balance = oob.balance + moneyValue
+        oob.save()
+        data = {"code": 0, 'msg': "充值成功"}
+        return JsonResponse(data)
+    

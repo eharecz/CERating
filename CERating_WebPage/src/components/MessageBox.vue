@@ -20,22 +20,34 @@
 </template>
 
 <script>
+
+
 export default {
   name: "LoginForm",
-  props: ["fTitle", "fMessage", "fGoURL", "fGoName"],
+  props: ["fshowMB", "fTitle", "fMessage", "fGoURL", "fGoName"],
   data() {
     return {
-      show: true,
+      show: false,
     };
   },
   methods: {
-    goFun() {
-      this.$router.push(this.fGoURL);
-    },
     closeCom() {
-      this.show=false
+      this.show = false;
       this.$emit("changeMB", this.show);
-    }
+    },
+    goFun() {
+      if (this.fGoURL == -1) {
+        // 确认键
+        this.show = false;
+        this.$emit("changeMB", this.show);
+      } else if (this.fGoURL == -2) {
+        // 调用父类函数
+        this.$emit("mbfun");
+      } else {
+        // 跳转页面
+        this.$router.push(this.fGoURL);
+      }
+    },
   },
 };
 </script>
@@ -47,7 +59,7 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  background: rgba(204,204,204, 0.5);
+  background: rgba(204, 204, 204, 0.5);
   background-size: cover;
   z-index: 0;
 }

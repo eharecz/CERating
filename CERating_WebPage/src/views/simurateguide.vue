@@ -1,5 +1,6 @@
 <template>
   <div class="grade">
+    <NavigationBar/>
     <div class="title">
       <p>模拟评级导航</p>
     </div>
@@ -17,7 +18,9 @@
 </template>
 
 <script>
+import NavigationBar from "../components/NavigationBar.vue";
 export default {
+  components: { NavigationBar},
   name: "grade"
 }
 </script>
