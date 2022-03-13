@@ -163,7 +163,6 @@ def query_result(request):
     em = request.POST.get('email')  # 相关负责人邮箱地址
     oob = Enterprise.objects.get(email=em) #获取余额
     session_key = request.session.session_key
-    print(session_key)
     # le = request.POST.get('level')  # 企业评级
     # 用户未登录返回code：1
     if not request.session.exists(session_key): #session_key就是那个sessionid的值
@@ -178,15 +177,15 @@ def query_result(request):
             if request.method == 'POST':
                 oob.simulate_count = oob.simulate_count - 1
                 oob.save()
-                one = request.POST.get('The_level_of_concern')
-                two = request.POST.get('environmental_policies')
-                three = request.POST.get('CO2_emissions')
-                four = request.POST.get('Waste_discharge')
-                five = request.POST.get('Discharge_wastewater')
-                six = request.POST.get('COD_emissions')
-                seven = request.POST.get('Combined_energy_consumption')
-                eight = request.POST.get('R_D_investment')
-                nine = request.POST.get('Environmental_investment')
+                one = float(request.POST.get('The_level_of_concern'))
+                two = float(request.POST.get('environmental_policies'))
+                three = float(request.POST.get('CO2_emissions'))
+                four = float(request.POST.get('Waste_discharge'))
+                five = float(request.POST.get('Discharge_wastewater'))
+                six = float(request.POST.get('COD_emissions'))
+                seven = float(request.POST.get('Combined_energy_consumption'))
+                eight = float(request.POST.get('R_D_investment'))
+                nine = float(request.POST.get('Environmental_investment'))
                 A = np.array([one,two,three,four,five,six,seven,eight,nine])
                 E = np.array([
         [1, 1, 1, 1, 1],
@@ -206,8 +205,8 @@ def query_result(request):
                 # 运算...
                 # 返回运算值
                 result = matrixMultiply(w, matrix)
-                data = {"code": 0}
-                return JsonResponse(result,data)
+                data = {"code": 0, "result": result}
+                return JsonResponse(data)
 
 def test(request):
     print((request))

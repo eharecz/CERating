@@ -10,7 +10,7 @@
         <div class="result-title">
           {{ this.comRating["bName"] }}公司{{
             this.comRating["bYear"]
-          }}年碳排放评级
+          }}年碳排放模拟评级
         </div>
         <div class="result-box">
           <div class="generalInfo-box">

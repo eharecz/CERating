@@ -44,7 +44,6 @@
 <script>
 import qs from "qs";
 import sha256 from "js-sha256";
-import Global from "../Global.vue";
 
 export default {
   name: "LoginForm",
@@ -75,6 +74,7 @@ export default {
           if (res["code"] == 0) {
             localStorage.setItem("email", this.loginForm["email"]); // email存储到localStorage
             console.log(localStorage.getItem("email"));
+            this.$Global.email = this.loginForm["email"]
 
             this.$router.push({
               path: "/",

@@ -123,7 +123,6 @@
 </template>
 
 <script>
-import Global from "../components/Global.vue"
 import NavigationBar from "../components/NavigationBar.vue";
 import MessageBox from "../components/MessageBox.vue";
 
@@ -152,7 +151,7 @@ export default {
   },
   created() {
     this.$axios
-        .post(Global.address + '/api/getEnterpriseData/')
+        .post('http://127.0.0.1:8080/api/getEnterpriseData/')
         .then( response => {
           this.result = response
         })
@@ -163,50 +162,13 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      let axios = this.$axios
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // alert('submit!');
-            this.$axios
-                .post(
-                  Global.address + "/api/query_result/",
-                  this.ruleForm,
-                  { emulateJSON: true, credentials: true }
-                )
-                .then((response) => {
-                  if (response["code"] == "0") {
-                    // 正常
-                    this.$router.push({path:'/simurateresult',query:{enterprise: this.ruleForm.goodsName, level: response.level}})
-                  } else if (response["code"] == "1") {
-                    // 未登录
-                    // this.mb["mbMessage"] = response["msg"]
-                    this.mb["mbMessage"] = "您还未登录，请先登录以后再进行操作！";
-                    this.mb["mbGoName"] = "去登陆";
-                    this.mb["mbGoURL"] = "/login";
-                    document
-                      .getElementsByClassName("mb")[0]
-                      .setAttribute("style", "display:block");
-                  } else if (response["code"] == "2") {
-                    // 当前用户并没有购买这个企业的信息
-                    // this.mb["mbMessage"] = response["msg"]
-                    this.mb["mbMessage"] = "抱歉，您的模拟评级次数不足，请及时充值";
-                    this.mb["mbGoName"] = "去充值";
-                    this.mb["mbGoURL"] = "-2"; // -2 表示进行相应post操作
-                    document
-                      .getElementsByClassName("mb")[0]
-                      .setAttribute("style", "display:block");
-                  }
-                })
-                .catch((error) => {
-                  console.log(error);
-                  alert("数据获取失败,请刷新重试");
-                });
           this.$alert('是否消耗一次模拟评级机会', '', {
             confirmButtonText: '确定',
             callback: action => {
               console.log(action)
-              console.log(this.ruleForm)
-              
+              this.query()
             }
           });
         } else {
@@ -214,6 +176,49 @@ export default {
           return false;
         }
       });
+    },
+    query() {
+        let data = new FormData();
+        for (var index in this.ruleForm) {
+          data.append(index, this.ruleForm[index]);
+          // console.log(index, this.ruleForm[index]);
+        }
+        data.append("email", "eharecz@gmail.com")
+        console.log(this.ruleForm);
+        this.$axios
+        .post(
+          "http://127.0.0.1:8080/api/query_result/",
+          data,
+          { emulateJSON: true, credentials: true }
+        )
+        .then((response) => {
+          if (response["code"] == "0") {
+            // 正常
+            this.$router.push({path:'/simurateresult',query:{enterprise: this.ruleForm.goodsName, level: response.level}})
+          } else if (response["code"] == "1") {
+            // 未登录
+            // this.mb["mbMessage"] = response["msg"]
+            this.mb["mbMessage"] = "您还未登录，请先登录以后再进行操作！";
+            this.mb["mbGoName"] = "去登陆";
+            this.mb["mbGoURL"] = "/login";
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          } else if (response["code"] == "2") {
+            // 当前用户并没有购买这个企业的信息
+            // this.mb["mbMessage"] = response["msg"]
+            this.mb["mbMessage"] = "抱歉，您的模拟评级次数不足，请及时充值";
+            this.mb["mbGoName"] = "去充值";
+            this.mb["mbGoURL"] = "-2"; // -2 表示进行相应post操作
+            document
+              .getElementsByClassName("mb")[0]
+              .setAttribute("style", "display:block");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          alert("数据获取失败,请刷新重试");
+        });
     },
     // 关闭提示窗口
     closeMB(msg) {
