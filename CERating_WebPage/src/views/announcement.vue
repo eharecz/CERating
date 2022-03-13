@@ -22,19 +22,19 @@
 
           <p data-v-93c81e66=""
              class="md-title text-center">帮助中心</p>
-          <p data-v-93c81e66="" class="md-title1 text-center">全方位解决你的商标问题</p>
+          <p data-v-93c81e66="" class="md-title1 text-center">解决您在使用过程中遇到的问题</p>
           <div data-v-93c81e66="" class="help help1" style="padding: 89px 80px 50px;">
-            <div data-v-93c81e66=""><p data-v-93c81e66="" class="font-size-16 color-2B6BFF mt-5">Q：商标更正有哪几种情况？</p>
+            <div data-v-93c81e66=""><p data-v-93c81e66="" class="font-size-16 color-2B6BFF mt-5">Q：评级最终结果与设想（模拟）出现很大差别该如何做？</p>
               <p data-v-93c81e66="" class="font-size-16 list color-0D253E">
-                A：商标更正有两种，一种是注册人或代理人的笔误，另一种是商标局在受理商标注册申请文件时，在录入或扫描过程中将个别内容弄错的。</p></div>
-            <div data-v-93c81e66=""><p data-v-93c81e66="" class="font-size-16 color-2B6BFF mt-5">Q：商标更正和商标变更有什么区别？</p>
+                A：可以向官方申请成绩结果审核，官网将会在2个工作日内给出审核结果报告，除非真实有误否则不会做出调整。</p></div>
+            <div data-v-93c81e66=""><p data-v-93c81e66="" class="font-size-16 color-2B6BFF mt-5">Q：评级结果是否提供纸质印章版？</p>
               <p data-v-93c81e66="" class="font-size-16 list color-0D253E">
-                A：商标更正：是指在商标过程中，由于申请文件文字错误，不涉及商标、申请名称、地址等内容的更改。商标变更：商标核准注册后，商标注册人的名义、地址或其他注册事项发生变更的，应当向商标局申请办理相应变更手续。</p>
+                A：可以提供带有网站专属印章的纸质版报告，企业可以联系我们的官方人员，并正确填入邮寄地址，我们将及时为您寄出报告，需要您注意运费到付。</p>
             </div>
             <div data-v-93c81e66=""><p data-v-93c81e66="" class="font-size-16 color-2B6BFF mt-5">
-              Q：变更成功后，会下发新的商标注册证吗？</p>
+              Q：网页是否存在功能设限？</p>
               <p data-v-93c81e66="" class="font-size-16 list color-0D253E">
-                A：商标局会下发《商标更正核准证明》，此文件须同原商标证书一并使用，不再下发新的证书。</p>
+                A：网页的所有功能企业都可以免费（付费）的情况下多次浏览，若存在非法盗取的情况后台将会予以监视封锁账号。</p>
             </div>
           </div>
         </div>
