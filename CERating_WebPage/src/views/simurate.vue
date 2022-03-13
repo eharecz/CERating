@@ -43,32 +43,32 @@
                   <!-- <el-option v-for="(item, index) in kindList" :label="item.name" :value="item.id" :key="index"></el-option> -->
                 </el-select>
               </el-form-item>
-              <el-form-item label="是否采取节能减排措施" prop="name1">
-                <el-input v-model="ruleForm.name1" placeholder="请输入指标X"></el-input>
+              <el-form-item label="是否采取节能减排措施（是填1,否填0）" prop="name1">
+                <el-input v-model="ruleForm.environmental_policies" placeholder="请输入指标X"></el-input>
               </el-form-item>
-              <el-form-item label="公开信息中对环保政策的关注程度" prop="name2">
-                <el-input v-model="ruleForm.name2" placeholder="请输入指标X"></el-input>
+              <el-form-item label="公开信息中对环保政策的关注程度（0~20）" prop="name2">
+                <el-input v-model="ruleForm.The_level_of_concern" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="二氧化碳排放（吨）" prop="name3">
-                <el-input v-model="ruleForm.name3" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.CO2_emissions" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="废弃物排放（吨）" prop="name4">
-                <el-input v-model="ruleForm.name4" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.Waste_discharge" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="排废水量（吨）" prop="name5">
-                <el-input v-model="ruleForm.name5" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.Discharge_wastewater" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="COD排放（吨）" prop="name6">
-                <el-input v-model="ruleForm.name6" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.COD_emissions" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="综合能耗（吨标煤）" prop="name7">
-                <el-input v-model="ruleForm.name7" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.Combined_energy_consumption" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="研发投入(亿元)" prop="name8">
-                <el-input v-model="ruleForm.name8" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.R_D_investment" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item label="环保投入（万元）" prop="name9">
-                <el-input v-model="ruleForm.name9" placeholder="请输入指标X"></el-input>
+                <el-input v-model="ruleForm.Environmental_investment" placeholder="请输入指标X"></el-input>
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">立即提交</el-button>
@@ -104,6 +104,15 @@
         </div>
         <!-- 主题内容 -->
         <router-view/>
+          <MessageBox
+          class="mb"
+          :fTitle="this.mb['mbTitle']"
+          :fMessage="this.mb['mbMessage']"
+          :fGoURL="this.mb['mbGoURL']"
+          :fGoName="this.mb['mbGoName']"
+          @changeMB="closeMB"
+          @mbfun="purchase"
+        ></MessageBox>
       </el-main>
       <!-- 底部信息 -->
       <el-footer>
@@ -116,11 +125,11 @@
 <script>
 import Global from "../components/Global.vue"
 import NavigationBar from "../components/NavigationBar.vue";
-import axios from "axios";
+import MessageBox from "../components/MessageBox.vue";
 
 export default {
   name: "Home",
-  components: {NavigationBar},
+  components: {NavigationBar, MessageBox},
   data() {
     return {
       activeURL: 4,
@@ -132,11 +141,17 @@ export default {
         goodsName: [
           { required: true, message: '请选择', trigger: 'change' }
         ],
+      },
+      mb: {
+        mbTitle: "温馨提示",
+        mbMessage: "温馨提示内容",
+        mbGoURL: "/",
+        mbGoName: "主页",
       }
     }
   },
   created() {
-    axios
+    this.$axios
         .post(Global.address + '/api/getEnterpriseData/')
         .then( response => {
           this.result = response
@@ -148,19 +163,50 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      let axios = this.$axios
       this.$refs[formName].validate((valid) => {
         if (valid) {
           // alert('submit!');
+            this.$axios
+                .post(
+                  Global.address + "/api/query_result/",
+                  this.ruleForm,
+                  { emulateJSON: true, credentials: true }
+                )
+                .then((response) => {
+                  if (response["code"] == "0") {
+                    // 正常
+                    this.$router.push({path:'/simurateresult',query:{enterprise: this.ruleForm.goodsName, level: response.level}})
+                  } else if (response["code"] == "1") {
+                    // 未登录
+                    // this.mb["mbMessage"] = response["msg"]
+                    this.mb["mbMessage"] = "您还未登录，请先登录以后再进行操作！";
+                    this.mb["mbGoName"] = "去登陆";
+                    this.mb["mbGoURL"] = "/login";
+                    document
+                      .getElementsByClassName("mb")[0]
+                      .setAttribute("style", "display:block");
+                  } else if (response["code"] == "2") {
+                    // 当前用户并没有购买这个企业的信息
+                    // this.mb["mbMessage"] = response["msg"]
+                    this.mb["mbMessage"] = "抱歉，您的模拟评级次数不足，请及时充值";
+                    this.mb["mbGoName"] = "去充值";
+                    this.mb["mbGoURL"] = "-2"; // -2 表示进行相应post操作
+                    document
+                      .getElementsByClassName("mb")[0]
+                      .setAttribute("style", "display:block");
+                  }
+                })
+                .catch((error) => {
+                  console.log(error);
+                  alert("数据获取失败,请刷新重试");
+                });
           this.$alert('是否消耗一次模拟评级机会', '', {
             confirmButtonText: '确定',
             callback: action => {
               console.log(action)
               console.log(this.ruleForm)
-              // axios
-              //   .post(Global.address + '/api/simurate', this.$refs[formName])
-              //   .then( response => {
-              //     console.log(response)
-              //   })
+              
             }
           });
         } else {
@@ -168,6 +214,14 @@ export default {
           return false;
         }
       });
+    },
+    // 关闭提示窗口
+    closeMB(msg) {
+      if (msg == false) {
+        document
+          .getElementsByClassName("mb")[0]
+          .setAttribute("style", "display:none");
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
@@ -187,7 +241,11 @@ export default {
   width: 50%;
   display: inline-block;
 }
-
+.mb {
+  position: absolute;
+  top: 30%;
+  display: none;
+}
 .home-background {
   position: fixed;
   left: 0;

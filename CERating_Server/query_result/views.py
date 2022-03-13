@@ -162,10 +162,11 @@ def matrixMultiply(A, B):
 def query_result(request):
     em = request.POST.get('email')  # 相关负责人邮箱地址
     oob = Enterprise.objects.get(email=em) #获取余额
-    st = request.POST.get('session')   #获取登陆状态
+    session_key = request.session.session_key
+    print(session_key)
     # le = request.POST.get('level')  # 企业评级
     # 用户未登录返回code：1
-    if st != 1:
+    if not request.session.exists(session_key): #session_key就是那个sessionid的值
         data = {"code": 1}
         return JsonResponse(data)
     else:
@@ -175,6 +176,8 @@ def query_result(request):
             return JsonResponse(data)
         else:
             if request.method == 'POST':
+                oob.simulate_count = oob.simulate_count - 1
+                oob.save()
                 one = request.POST.get('The_level_of_concern')
                 two = request.POST.get('environmental_policies')
                 three = request.POST.get('CO2_emissions')
@@ -182,7 +185,7 @@ def query_result(request):
                 five = request.POST.get('Discharge_wastewater')
                 six = request.POST.get('COD_emissions')
                 seven = request.POST.get('Combined_energy_consumption')
-                eight = request.POST.get('R&D_investment')
+                eight = request.POST.get('R_D_investment')
                 nine = request.POST.get('Environmental_investment')
                 A = np.array([one,two,three,four,five,six,seven,eight,nine])
                 E = np.array([
@@ -206,7 +209,5 @@ def query_result(request):
                 data = {"code": 0}
                 return JsonResponse(result,data)
 
-
-
-
-
+def test(request):
+    print((request))

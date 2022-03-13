@@ -25,5 +25,6 @@ urlpatterns = [
     path('enterprise_register/',include("enterprise_register.urls")),
     path('enterprise_simurate/',include("enterprise_simurate.urls")),
     path('enterprise_recharge/',include("enterprise_recharge.urls")),
+    path('query_result/',include("query_result.urls")),
     path('', include('web.urls'))
 ]
