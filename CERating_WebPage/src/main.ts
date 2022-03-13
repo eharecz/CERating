@@ -6,5 +6,9 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import axios from 'axios'
 
+// 登录请求预处理，存储cookie
+axios.defaults.withCredentials = true
 
-const app = createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
+const app = createApp(App)
+app.use(store).use(router).use(ElementPlus).mount('#app')
+app.config.globalProperties.$axios = axios

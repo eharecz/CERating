@@ -23,19 +23,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-0indf%a8v+%m4btc9+ls1^b01htvcfr!t%=ws-0dz1_7vtm3k0'
+# cookie存储问题
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = None
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']#都可访问
-
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
 INSTALLED_APPS = [
-    'corsheaders',
+    # 'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -62,6 +62,19 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'web.loginmiddleware.LoginMiddleware', # 自定义中间件
 ]
+
+ALLOWED_HOSTS = ['*']#都可访问
+
+# CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOW_CREDENTIALS = True
+# 白名单
+CORS_ORIGIN_WHITELIST = [
+    "https://example.com",
+    "https://sub.example.com",
+    "http://localhost:8080",
+    "http://127.0.0.1:9000"
+]
+
 
 ROOT_URLCONF = 'CERating_Server.urls'
 
@@ -153,6 +166,7 @@ STATICFILE_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 
 # 跨域
 CORS_ALLOW_CREDENTIALS = True

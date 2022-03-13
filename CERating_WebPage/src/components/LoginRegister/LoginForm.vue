@@ -42,9 +42,9 @@
 </template>
 
 <script>
-import { postRequest } from "@/utils/api";
-import qs from 'qs'
-import Global from "@/components/Global.vue";
+import qs from "qs";
+import sha256 from "js-sha256";
+import Global from "../Global.vue";
 
 export default {
   name: "LoginForm",
@@ -63,29 +63,31 @@ export default {
       alert("获取验证码");
     },
     submitLogin() {
+      let old = this.loginForm.password;
+      this.loginForm.password = sha256(this.loginForm.password);
+      this.$axios
+        .post(
+          "http://127.0.0.1:8080/api/enterprise_login/",
+          qs.stringify(this.loginForm)
+        )
+        .then((res) => {
+          this.loginForm.password = old;
+          if (res["code"] == 0) {
+            localStorage.setItem("email", this.loginForm["email"]); // email存储到localStorage
+            console.log(localStorage.getItem("email"));
 
-      postRequest("http://127.0.0.1:8000/enterprise_login/", qs.stringify(this.loginForm)).then(response => {
-        console.log(this.loginForm)
-        console.log(response)
-        if(response.code === 0){
-          Global.email = response.email
-          this.$router.replace('/');
-          // replace替换页面  浏览器不能后退按钮返回
-          // push 浏览器能后退按钮返回
-        }else if(response.code === 1){
-          alert("邮箱不存在")
-        }else if(response.code === 2){
-          console.log("密码·错误")
-          alert("密码错误")
-        }
-      })
+            this.$router.push({
+              path: "/",
+            });
+          }
+        });
     },
   },
 };
 </script>
 
 <style scoped>
-.login-form{
+.login-form {
   margin: 0 0.6rem;
 }
 .login-form h3 {
@@ -153,7 +155,7 @@ export default {
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
-.login-form input:focus ~ .input-underline:before{
+.login-form input:focus ~ .input-underline:before {
   transform: scaleX(1);
 }
 .login-form button {

@@ -9,6 +9,10 @@ def login(request):
         s = request.POST['password']
         if user.password == s:
             print('登录成功')
+            request.session['is_login'] = True
+            request.session['user_id'] = user.id
+            request.session['user_name'] = user.name
+            request.session['email'] = user.email
             data = {'code': 0, 'name': user.name}
             return JsonResponse(data)
         else:
