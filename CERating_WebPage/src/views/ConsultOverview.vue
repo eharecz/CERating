@@ -8,15 +8,15 @@
     <div class="main-wrapper">
       <MainTitle></MainTitle>
       <div class="content-wrapper">
-        <div class="content-box" id="content-box-1">
+        <a class="content-box" id="content-box-1" href="/consultdetail">
           <div class="content-title" >{{ content[0].title }}</div>
-        </div>
-        <div class="content-box" id="content-box-2">
+        </a>
+        <a class="content-box" id="content-box-2" href="/consultdetail2">
           <div class="content-title" >{{ content[1].title }}</div>
-        </div>
-        <div class="content-box" id="content-box-3">
+        </a>
+        <a class="content-box" id="content-box-3" href="/consultdetail3">
           <div class="content-title" id = "content-title-3">{{ content[2].title }}</div>
-        </div>
+        </a>
       </div>
     </div>
   </div>
