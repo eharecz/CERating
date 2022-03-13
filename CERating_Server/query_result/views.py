@@ -9,7 +9,7 @@ from enterprise_simurate.models import Enterprise
 import numpy as np
 import pandas as pd
 
-w = np.array([0.167,0.167,0.071,0.063,0.056,0.071,0.071,0.167,0.167])
+w = np.array([0.0833,0.0823,0.0149,0.0166,0.0279,0.0346,0.0136,0.1962,0.5306])
 
 #计算企业矩阵
 # data = (1，2，3，4，5，6，7，8，9)1*9矩阵   指标要与临界值矩阵指标对齐，临界值x1~x5从小到大排序
@@ -65,7 +65,7 @@ def mat(data,linjiezhi,u = _no_value):
                     else:
                         matrix[i][j] = 0
 
-                elif i ==4:
+                elif j ==4:
                     if data[i] <=linjiezhi[i][0]:
                         matrix[i][j] = 1
                     elif data[i] > linjiezhi[i][1]:
@@ -106,7 +106,7 @@ def mat(data,linjiezhi,u = _no_value):
                     else:
                         matrix[i][j] = 0
 
-                elif i == 0:
+                elif j == 0:
                     if data[i] <= linjiezhi[i][0]:
                         matrix[i][j] = 1
                     elif data[i] > linjiezhi[i][1]:
@@ -128,11 +128,6 @@ def matrixMultiply(A, B):
         (B_row, B_col) = (np.shape(B))[0], (np.shape(B))[1]
     else:
         (B_row, B_col) = 1,(np.shape(B))[0]
-    # print(np.shape(A))
-    # print(np.shape(B))
-    # print(A_row, A_col)便于理解
-    # print(B_row, B_col)
-    # 不能运算情况的判断
     if (A_col != B_row):
         raise ValueError
 
@@ -205,6 +200,7 @@ def query_result(request):
                 # 运算...
                 # 返回运算值
                 result = matrixMultiply(w, matrix)
+                
                 data = {"code": 0, "result": result}
                 return JsonResponse(data)
 
