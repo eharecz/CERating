@@ -168,7 +168,16 @@ export default {
             confirmButtonText: '确定',
             callback: action => {
               console.log(action)
-              this.query()
+              if(localStorage.getItem("email") == undefined) {
+                this.mb["mbMessage"] = "您还未登录，请先登录以后再进行操作！";
+                this.mb["mbGoName"] = "去登陆";
+                this.mb["mbGoURL"] = "/login";
+                document
+                  .getElementsByClassName("mb")[0]
+                  .setAttribute("style", "display:block");
+              }else {
+                this.query()
+              }
             }
           });
         } else {
@@ -183,7 +192,7 @@ export default {
           data.append(index, this.ruleForm[index]);
           // console.log(index, this.ruleForm[index]);
         }
-        data.append("email", this.$Global.email)
+        data.append("email", localStorage.getItem("email"))
         this.$axios
         .post(
           this.$Global.address + "/api/query_result/",
@@ -193,7 +202,7 @@ export default {
         .then((response) => {
           if (response["code"] == "0") {
             // 正常
-            this.$router.push({path:'/simurateresult',query:{enterprise: this.ruleForm.goodsName, level: response.level}})
+            this.$router.push({path:'/simurateresult',query:{enterprise: this.ruleForm.goodsName, level: response.result}})
           } else if (response["code"] == "1") {
             // 未登录
             // this.mb["mbMessage"] = response["msg"]

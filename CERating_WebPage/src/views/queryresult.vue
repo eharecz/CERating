@@ -66,7 +66,6 @@
 import NavigationBar from "../components/NavigationBar.vue";
 import Footer from "../components/Home/Footer.vue";
 import MessageBox from "../components/MessageBox.vue";
-import Global from "../components/Global.vue";
 
 export default {
   name: "Home",
@@ -78,7 +77,7 @@ export default {
     data.append("name", this.comRating.bName);
     this.$axios
       .post(
-        Global.address + "/api/enterprise_simurate/getEnterpriseRating/",
+        this.$Global.address + "/api/enterprise_simurate/getEnterpriseRating/",
         data
       )
       .then((response) => {
@@ -115,7 +114,7 @@ export default {
       console.log(localStorage.getItem("email"));
       this.$axios
         .post(
-          Global.address + "/api/enterprise_simurate/purchaseRatingData/",
+          this.$Global.address + "/api/enterprise_simurate/purchaseRatingData/",
           data,
           { emulateJSON: true, credentials: true }
         )
@@ -159,9 +158,10 @@ export default {
       data.append("name", this.comRating.bName);
       data.append("email", localStorage.getItem("email"));
       console.log(localStorage.getItem("email"));
+      console.log(this.$Global.address)
       this.$axios
         .post(
-          Global.address + "/api/enterprise_simurate/getEnterpriseRatingData/",
+          this.$Global.address + "/api/enterprise_simurate/getEnterpriseRatingData/",
           data,
           { emulateJSON: true, credentials: true }
         )

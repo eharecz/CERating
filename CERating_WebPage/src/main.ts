@@ -14,4 +14,4 @@ axios.defaults.withCredentials = true
 const app = createApp(App)
 app.use(store).use(router).use(ElementPlus).mount('#app')
 app.config.globalProperties.$axios = axios
-app.config.globalProperties.$axios = Global
+app.config.globalProperties.$Global = Global

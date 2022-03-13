@@ -127,7 +127,6 @@
 
 <script>
 import Footer from "../components/Home/Footer.vue"
-import Global from "../components/Global.vue"
 import axios from "axios";
 
 export default {
@@ -145,7 +144,7 @@ export default {
   },
   created() {
     axios
-        .post(Global.address + '/api/getEnterpriseData/')
+        .post(this.$Global.address + '/api/getEnterpriseData/')
         .then( response => {
           this.result = response
           console.log(this.result);
