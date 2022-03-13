@@ -55,6 +55,11 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/simurate.vue')
   },
   {
+    path: '/simurateresult', /*模拟评级查询结果*/
+    name: 'SimurateResult',
+    component: () => import('../views/simurateresult.vue')
+  },
+  {
     path: '/queryresult', /*查询结果*/
     name: 'QueryResult',
     component: () => import('../views/queryresult.vue')
