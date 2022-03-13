@@ -31,7 +31,7 @@ def enterprise_simurate(request):
         return JsonResponse(data)
 
 
-def getEnterprseRating(request):
+def getEnterpriseRating(request):
     Ename = request.POST.get("name")
 
     dict = {"轻度污染":"A","中度污染":"B","重度污染":"C",}
@@ -47,7 +47,8 @@ def getEnterprseRating(request):
 def getEnterpriseRatingData(request):
     Email = request.POST.get("email")
     Ename = request.POST.get("name")
-    session_key = request.session.session_key 
+    session_key = request.session.session_key
+    print(session_key)
     # 如果没有登录
     if not request.session.exists(session_key): #session_key就是那个sessionid的值
         data = {"code":"1","data":" ","msg":"Not login"}
@@ -62,7 +63,7 @@ def getEnterpriseRatingData(request):
         return JsonResponse(data)
 
     owner = Enterprise.objects.get(email=Email)
-    goods = Enterprise.objects.get(name=Ename)
+    goods = EnterpriseData.objects.get(name=Ename)
     # 当前用户并没有购买这个企业的信息
     if Order.objects.filter(owner_id=owner.id, goods_id=goods.id).exists()==False:
         data = {"code":"3","data":"","msg":"Didn't buy it"}
@@ -89,10 +90,10 @@ def purchaseRatingData(request):
         data = {"code":"1"}
         return JsonResponse(data)
     owner = Enterprise.objects.get(email=Email)
-    goods = Enterprise.objects.get(name=goods_name)
+    goods = EnterpriseData.objects.get(name=goods_name)
     # 余额不足
     if owner.balance < 10:
-        data = {"code":"1"}
+        data = {"code":"2"}
         return JsonResponse(data)
     
     owner.balance = owner.balance - 10
@@ -112,6 +113,7 @@ def test(request):
     if not request.session.exists(session_key): #session_key就是那个sessionid的值
         data = {"code":"1"}
         request.session['is_login'] = True
+        request.session['email'] = "123@qq.com"
         return JsonResponse(data)
     else:
         data = {"code":"2"}

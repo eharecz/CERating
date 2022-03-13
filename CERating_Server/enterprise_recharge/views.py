@@ -33,13 +33,13 @@ def recharge(request):
 # 账户不存在 : 1
 # 金额错误 ： 2
 def recharge2(request):
-    session_key = request.session.session_key 
-    # 如果没有登录
-    if not request.session.exists(session_key): #session_key就是那个sessionid的值
-        data = {"code":"4", "msg":"未登录"}
-        return JsonResponse(data)
-    em = request.POST.get('email')
+    # session_key = request.session.session_key
+    # # 如果没有登录
+    # if not request.session.exists(session_key): #session_key就是那个sessionid的值
+    #     data = {"code":"4", "msg":"未登录"}
+    #     return JsonResponse(data)
 
+    em = request.POST.get('email')
     if Enterprise.objects.filter(email=em).exists()==False:#邮箱不存在
         data = {"code": 1, 'msg': "邮箱不存在"}
         return JsonResponse(data)
@@ -47,8 +47,11 @@ def recharge2(request):
     simulateCount = request.POST.get('simulateCount')
     money = request.POST.get('money')
 
+    print("money", money)
+    print("Count", simulateCount)
+
     # 如果充值金额或次数为空
-    if simulateCount is None or money is None:
+    if simulateCount == 0 and money == 0:
         data = {"code": 2, 'msg': "充值金额/次数有误"}
         return JsonResponse(data)
 
