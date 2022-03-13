@@ -10,8 +10,8 @@ import { Vue } from 'vue-class-component'
 
 // 登录请求预处理，存储cookie
 axios.defaults.withCredentials = true
-// Vue.prototype.$Global = Global
 
 const app = createApp(App)
 app.use(store).use(router).use(ElementPlus).mount('#app')
 app.config.globalProperties.$axios = axios
+app.config.globalProperties.$axios = Global

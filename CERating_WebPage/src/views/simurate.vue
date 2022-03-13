@@ -183,11 +183,10 @@ export default {
           data.append(index, this.ruleForm[index]);
           // console.log(index, this.ruleForm[index]);
         }
-        data.append("email", "eharecz@gmail.com")
-        console.log(this.ruleForm);
+        data.append("email", this.$Global.email)
         this.$axios
         .post(
-          "http://127.0.0.1:8080/api/query_result/",
+          this.$Global.address + "/api/query_result/",
           data,
           { emulateJSON: true, credentials: true }
         )

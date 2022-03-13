@@ -66,7 +66,7 @@ export default {
       this.loginForm.password = sha256(this.loginForm.password);
       this.$axios
         .post(
-          "http://127.0.0.1:8080/api/enterprise_login/",
+          this.$Global.address + "/api/enterprise_login/",
           qs.stringify(this.loginForm)
         )
         .then((res) => {
