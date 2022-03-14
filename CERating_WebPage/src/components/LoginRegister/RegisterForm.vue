@@ -121,13 +121,13 @@ export default {
   },
   methods: {
     getSecurityCode() {
-      postRequest("http://127.0.0.1:8000/email_request/", this.registerForm).then(response => {
+      postRequest("http://127.0.0.1:8000/email_request/", qs.stringify(this.registerForm)).then(response => {
         console.log(this.registerForm)
         console.log(response)
       });
     },
     submitRegister() {
-      postRequest("http://127.0.0.1:8000/enterprise_register/", this.registerForm).then(response => {
+      postRequest("http://127.0.0.1:8000/enterprise_register/", qs.stringify(this.registerForm)).then(response => {
         console.log("form")
         console.log(this.registerForm)
         console.log(response)
