@@ -256,7 +256,8 @@ export default {
 }
 .mb {
   position: absolute;
-  top: 30%;
+  top: 40%;
+  margin: 0 50%;
   display: none;
 }
 .home-background {
