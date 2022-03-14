@@ -76,9 +76,7 @@ export default {
             console.log(localStorage.getItem("email"));
             this.$Global.email = this.loginForm["email"]
 
-            this.$router.push({
-              path: "/",
-            });
+            this.$router.go(-1)
           }
         });
     },

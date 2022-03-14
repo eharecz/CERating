@@ -217,7 +217,7 @@ export default {
             // this.mb["mbMessage"] = response["msg"]
             this.mb["mbMessage"] = "抱歉，您的模拟评级次数不足，请及时充值";
             this.mb["mbGoName"] = "去充值";
-            this.mb["mbGoURL"] = "-2"; // -2 表示进行相应post操作
+            this.mb["mbGoURL"] = "/recharge"; // -2 表示进行相应post操作
             document
               .getElementsByClassName("mb")[0]
               .setAttribute("style", "display:block");
