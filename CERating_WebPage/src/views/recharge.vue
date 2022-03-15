@@ -64,8 +64,9 @@
             --el-button-active-bg-color: rgb(58, 142, 230);
             --el-button-active-border-color: rgb(58, 142, 230);
           "
+          @click="$router.go(-1)"
         >
-          <!--v-if--><span class="">返回</span>
+          <!--v-if--><span>返回</span>
         </button>
         <button
           class="el-button el-button--primary el-button--mini"
